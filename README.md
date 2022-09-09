@@ -87,6 +87,9 @@ User has a google account
 
 
 ## Scrum Roles
+- Product Owner/Scrum Master/DevOps/GitHub Administrator: Andrew Glanz
+- Business Logic and Persistence Specialist: Nick Bell
+- UI Specialist: Felix and Jack McHugh 
 
 ## Weekly Meeting
 
