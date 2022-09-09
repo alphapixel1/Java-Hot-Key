@@ -31,3 +31,39 @@ User has java
 **When** add keymap is clicked
 
 **Then** A keymap appears on the list of keymaps
+
+### Requirement 2: Cloud Storage.
+#### Scenario
+
+User wants to store keymaps and lua in the cloud
+
+#### Dependencies
+
+User has a 
+
+#### Assumptions
+
+User has a google account
+
+#### Examples
+1.1
+**Given** User has a google account
+
+**When** Host Autohotkey Project is clicked
+
+**Then** Code is hosted on firebase
+
+1.2
+**Given** User has a google account
+
+**When** google sign in button is clicked
+
+**Then** User is signed in.
+
+1.3
+**Given** User is signed in
+
+**When** User clicks cloud tab
+
+**Then** User is shown a list of their hosted projects
+
