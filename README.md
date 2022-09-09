@@ -67,3 +67,28 @@ User has a google account
 
 **Then** User is shown a list of their hosted projects
 
+## Class Diagram
+
+### Class Diagram Description
+
+
+**MainActivity:**  The first screen the user sees.  This will have a blank group or that last saved Game Keybinds
+
+**EditKeybindActivity:**  A screen that allows you to input new data to the keybind and modify it
+
+**OpenGameFragment** A fragment that allows you to switch between games
+
+**SettingsFragment** A Fragment that allows you to change the theme/colors
+
+**Group** Class that represents a group and has a name and an arraylist of Keybinds
+
+**Keybind:** A class with 4 strings: Name, Keybind 1, Keybind 2, Keybind 3
+
+
+
+## Scrum Roles
+
+## Weekly Meeting
+
+Thursday after 5pm On Discord.
+
