@@ -2,7 +2,7 @@
 ## Introduction 
 Define hotkeys for the mouse and keyboard, remap keys or buttons and autocorrect-like replacements.
 ## Storyboard
-
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/3buRxCkH9-M/0.jpg)](https://www.youtube.com/watch?v=3buRxCkH9-M "Video Title")
 ## Functional Requirements
 ### Requirement 1: Key mapping.
 #### Scenario
