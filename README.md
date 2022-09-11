@@ -84,6 +84,8 @@ User has a google account
   lua:"function func_name(keys)\nDown(Key.A)\nSleep(25)--ms\nUp(Key.A)\nPress(Key.B)\nend"
 }
 ```
+Array of keymaps each keymap has an array of keycodes and a function name
+and the object also has a string of lua code.
 ## Scrum Roles
 - Product Owner/Scrum Master/DevOps/GitHub Administrator: Andrew Glanz
 - Business Logic and Persistence Specialist: Nick Bell
