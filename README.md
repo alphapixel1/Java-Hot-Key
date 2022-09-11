@@ -71,7 +71,19 @@ User has a google account
 ## Class Diagram
 ![unknown](https://user-images.githubusercontent.com/23407049/189464102-989f8f35-289c-420c-b305-948043375cd0.png)
 
-
+## JSON Schema
+```
+{
+  keymaps:
+  [
+    {
+      keymap:[17,65],
+      functionName:"func_Name"
+    }
+  ],
+  lua:"function func_name(keys)\nDown(Key.A)\nSleep(25)--ms\nUp(Key.A)\nPress(Key.B)\nend"
+}
+```
 ## Scrum Roles
 - Product Owner/Scrum Master/DevOps/GitHub Administrator: Andrew Glanz
 - Business Logic and Persistence Specialist: Nick Bell
