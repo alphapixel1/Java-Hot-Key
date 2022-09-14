@@ -5,54 +5,91 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.lang.reflect.Modifier;
 
 public class MainGUI {
     public static void Show(){
         var jframe=new JFrame("Title");
+        jframe.setSize(800,400);
         jframe.show();
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         var panel=new JPanel();
 
         panel.setLayout(new BorderLayout());
         //panel.setLayout();
+
         jframe.add(panel,BorderLayout.NORTH);
 
-        var menu = new JMenuBar();
+        var menu = new MenuBar();
 
-        panel.add(menu);
+        jframe.setMenuBar(menu);
+
+        //panel.add(menu);
         /*
         File Menu
          */
-        var file=new JMenu("File");
+        var file=new Menu("File");
         menu.add(file);
 
-        var open =new JMenuItem("Open");
-        open.setAccelerator(KeyStroke.getKeyStroke('O', InputEvent.CTRL_DOWN_MASK ));
+        var open =new MenuItem("Open");
+        open.setActionCommand("fuck");
+        open.setShortcut(new MenuShortcut(KeyEvent.VK_O));
+
         file.add(open);
 
-        var _new =new JMenuItem("New");
-        _new.setAccelerator(KeyStroke.getKeyStroke('N', InputEvent.CTRL_DOWN_MASK ));
+        var _new =new MenuItem("New");
+        _new.setShortcut(new MenuShortcut(KeyEvent.VK_N));
         file.add(_new);
 
-        var save =new JMenuItem("Save");
-        save.setAccelerator(KeyStroke.getKeyStroke('S', InputEvent.CTRL_DOWN_MASK ));
+        var save =new MenuItem("Save");
+        save.setShortcut(new MenuShortcut(KeyEvent.VK_S));
         file.add(save);
 
-        var export =new JMenuItem("Export");
+        var export =new MenuItem("Export");
         file.add(export);
 
         /*
         Edit Menu
         */
-        var edit=new JMenu("Edit");
+        var edit=new Menu("Edit");
         menu.add(edit);
 
-        var clear=new JMenuItem("Clear Keybinds");
+        var clear=new MenuItem("Clear Keybinds");
         edit.add(clear);
 
-        var reset=new JMenuItem("Reset LUA");
+        var reset=new MenuItem("Reset LUA");
         edit.add(reset);
+
+        /*
+        Tool Menu
+         */
+        var tool=new Menu("Tools");
+        menu.add(tool);
+
+        var log=new MenuItem("Ouput Log");
+        tool.add(log);
+
+        var keyRef=new MenuItem("Key Reference");
+        tool.add(keyRef);
+
+        var quick=new MenuItem("Quick Keybind");
+        tool.add(quick);
+
+        /*
+        Quick Keybind Helper
+         */
+        var quickHelper=new Menu("Press any key");
+        menu.add(quickHelper);
+
+
+        /*
+        Panel for kbs
+         */
+        var kbPanel=new JPanel();
+        kbPanel.setBackground(Color.red);
+
+        panel.add(kbPanel,BorderLayout.SOUTH);
 
         jframe.pack();
     }
