@@ -14,18 +14,10 @@ public class MainGUI {
         jframe.setSize(800,400);
         jframe.show();
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        var panel=new JPanel();
-
-        panel.setLayout(new BorderLayout());
-        //panel.setLayout();
-
-        jframe.add(panel,BorderLayout.NORTH);
 
         var menu = new MenuBar();
-
         jframe.setMenuBar(menu);
 
-        //panel.add(menu);
         /*
         File Menu
          */
@@ -88,9 +80,23 @@ public class MainGUI {
          */
         var kbPanel=new JPanel();
         kbPanel.setBackground(Color.red);
+        kbPanel.setLayout(new BorderLayout());
+        jframe.add(kbPanel);
 
-        panel.add(kbPanel,BorderLayout.SOUTH);
+        /*
+        Boxes Setup
+         */
+        var kbBox=new JPanel();
+        kbBox.setLayout(new BoxLayout(kbBox,BoxLayout.Y_AXIS));
+        kbBox.setBackground(Color.red);
 
+
+        var b=new Button("The");
+        //why doesnt this work b.setSize(500,200);
+        kbBox.add(b);
+        //kbBox.setSize(500,500);
+        kbPanel.add(kbBox,BorderLayout.WEST);
+        kbPanel.add(new JButton("Center"),BorderLayout.CENTER);
         jframe.pack();
     }
 }
