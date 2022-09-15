@@ -21,7 +21,6 @@ public class Keybind {
         for (int key : keys) {
             ret+= NativeKeyEvent.getKeyText(key)+" + ";
         }
-
         return ret.substring(0,ret.length()-3);
     }
 }

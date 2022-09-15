@@ -1,13 +1,14 @@
 package UI;
 
 import Data.Keybind;
+import Data.Project;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainForm extends JFrame {
     private JPanel mainPanel;
@@ -27,6 +28,12 @@ public class MainForm extends JFrame {
         var model=new DefaultTableModel(0,2);
         model.addRow(new Object[]{"fuck","this"});
         JNonEditableTable1.setModel(model);
+
+        //Text pane tab size
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        TabSet tabs = new TabSet(new TabStop[] { new TabStop(20) });
+        AttributeSet paraSet = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.TabSet, tabs);
+        textPane1.setParagraphAttributes(paraSet, false);
         /*
         Init Menu
          */
@@ -105,6 +112,10 @@ public class MainForm extends JFrame {
             });
         }
         JNonEditableTable1.setModel(model);
+    }
+    public void loadProject(Project p){
+        loadKeybinds(p.keybinds);
+        textPane1.setText(p.luaCode);
     }
     private void createUIComponents() {
         // TODO: place custom component creation code here
