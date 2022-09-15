@@ -1,6 +1,9 @@
 package UI;
 
+import Data.Keybind;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -9,15 +12,21 @@ import java.util.Arrays;
 public class MainForm extends JFrame {
     private JPanel mainPanel;
     private JTextPane textPane1;
-    //private JList list1;
     private JButton deleteButton;
     private JButton editButton;
     private JButton compileButton;
+    private JNonEditableTable JNonEditableTable1;
+
 
     public MainForm(){
         this.setSize(500,500);
         this.setContentPane(mainPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+        var model=new DefaultTableModel(0,2);
+        model.addRow(new Object[]{"fuck","this"});
+        JNonEditableTable1.setModel(model);
         /*
         Init Menu
          */
@@ -71,17 +80,32 @@ public class MainForm extends JFrame {
         var keyRef=new MenuItem("Key Reference");
         tool.add(keyRef);
 
-        var quick=new MenuItem("Quick Keybind");
+        var quick=new MenuItem("Quick Data.Keybind");
         tool.add(quick);
 
         /*
-        Quick Keybind Helper
+        Add keybind
+         */
+        var add=new Menu("Add");
+        menu.add(add);
+        /*
+        Quick Data.Keybind Helper
          */
         var quickHelper=new Menu("Press any key");
         menu.add(quickHelper);
-     //   list1.setListData(new Object[]{"one","two","three"});
-    }
 
+    }
+    public void loadKeybinds(ArrayList<Keybind> keybindList){
+        var model=new DefaultTableModel(0,2);
+        model.addRow(new Object[]{"Keybind","Lua Function"});
+        for (Keybind keybind : keybindList) {
+            model.addRow(new Object[]{
+                    Keybind.getKeybindString(keybind.keybind),
+                    keybind.LuaFunction
+            });
+        }
+        JNonEditableTable1.setModel(model);
+    }
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }
