@@ -38,7 +38,7 @@ public class Main {
         test.setmetatable(t);
         LuaValue chunk = globals.load("print('Testing', obj.asd) obj.test()");
         chunk.call();*/
-      
+
        Path luaFile= Path.of("C:\\Users\\Nick\\Documents\\GitHub\\Java-Hot-Key\\src\\test.lua");
         String code= Files.readString(luaFile);
 
@@ -52,15 +52,15 @@ public class Main {
         run.call(keyTable);
 
 
- /*     var mf2=new MainForm();
+      var mf2=new MainForm();
         var kbs= new ArrayList<Keybind>(Arrays.asList(
-                new Keybind("func name",new int[]{1,2}),
+                new Keybind("run",new int[]{1,2}),
                 new Keybind("func name2",new int[]{20,30}),
                 new Keybind()
         ));
         mf2.loadKeybinds(kbs);
         mf2.loadProject(Project.getDefaultProject());
-        mf2.show();*/
+        mf2.setVisible(true);
     }
 
 }

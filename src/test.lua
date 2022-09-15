@@ -6,7 +6,7 @@ end
 
 
 function run(keys)
-    print(keys)
+    print(Keys.A)
     print("length " .. tablelength(keys))
     print(keys[0])
     print(keys[1])

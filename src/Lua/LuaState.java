@@ -23,8 +23,9 @@ public class LuaState {
         for(Map.Entry<String,Integer> entry:Keys.entrySet()){
             keys.set(LuaValue.valueOf(entry.getKey()),LuaValue.valueOf(entry.getValue()));
         }
-        //_g.hashset(LuaValue.valueOf("Keys"),keys);
-        state.get(LuaValue.valueOf("run")).checkfunction();
+        state.set(LuaValue.valueOf("Keys"),keys);
+        //state.hashset(LuaValue.valueOf("Keys"),keys);
+        //state.get(LuaValue.valueOf("run")).checkfunction();
         //state.set("__index",keys);
     }
 
