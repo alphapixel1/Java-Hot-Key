@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="UI.MainForm">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="0" left="0" bottom="0" right="0"/>
+  <grid id="27dc6" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
       <xy x="20" y="20" width="646" height="400"/>
     </constraints>
@@ -9,11 +8,7 @@
     <border type="none"/>
     <children>
       <splitpane id="3345">
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="200" height="200"/>
-          </grid>
-        </constraints>
+        <constraints border-constraint="Center"/>
         <properties/>
         <border type="none"/>
         <children>
@@ -24,10 +19,6 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="6031" class="javax.swing.JTextPane" binding="textPane1" default-binding="true">
-                <constraints border-constraint="Center"/>
-                <properties/>
-              </component>
               <grid id="f54ae" layout-manager="BorderLayout" hgap="5" vgap="0">
                 <constraints border-constraint="South"/>
                 <properties>
@@ -49,6 +40,10 @@
                   </component>
                 </children>
               </grid>
+              <component id="6031" class="javax.swing.JTextPane" binding="textPane1" default-binding="true">
+                <constraints border-constraint="West"/>
+                <properties/>
+              </component>
             </children>
           </grid>
           <grid id="8cd59" layout-manager="BorderLayout" hgap="0" vgap="0">
@@ -92,6 +87,22 @@
           </grid>
         </children>
       </splitpane>
+      <toolbar id="f897c">
+        <constraints border-constraint="South"/>
+        <properties>
+          <floatable value="false"/>
+          <orientation value="0"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="21aa9" class="javax.swing.JButton" binding="startButton" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Start"/>
+            </properties>
+          </component>
+        </children>
+      </toolbar>
     </children>
   </grid>
 </form>

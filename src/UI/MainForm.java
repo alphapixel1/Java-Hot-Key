@@ -17,6 +17,7 @@ public class MainForm extends JFrame {
     private JButton editButton;
     private JButton compileButton;
     private JNonEditableTable JNonEditableTable1;
+    private JButton startButton;
 
 
     public MainForm(){
@@ -100,6 +101,13 @@ public class MainForm extends JFrame {
          */
         var quickHelper=new Menu("Press any key");
         menu.add(quickHelper);
+        /*
+        Running button
+         */
+        var running=new Menu("Start");
+        menu.setHelpMenu(running);
+        //menu.add(running);
+
 
     }
     public void loadKeybinds(ArrayList<Keybind> keybindList){

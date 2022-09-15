@@ -52,13 +52,7 @@ public class Main {
         run.call(keyTable);
 
 
-      var mf2=new MainForm();
-        var kbs= new ArrayList<Keybind>(Arrays.asList(
-                new Keybind("run",new int[]{1,2}),
-                new Keybind("func name2",new int[]{20,30}),
-                new Keybind()
-        ));
-        mf2.loadKeybinds(kbs);
+        var mf2=new MainForm();
         mf2.loadProject(Project.getDefaultProject());
         mf2.setVisible(true);
     }
