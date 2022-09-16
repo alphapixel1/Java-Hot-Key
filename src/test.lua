@@ -6,7 +6,7 @@ end
 
 
 function run(keys)
-    Keyboard.down(122222)
+    Keyboard.down(Key.A)
     print(Keys.A)
     print(Keys)
     print("length " .. tablelength(keys))
