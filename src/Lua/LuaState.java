@@ -31,6 +31,7 @@ public class LuaState {
         state.set("Keyboard", test);
         LuaTable t=new LuaTable();
         t.set("down",new KeyboardSim.Down());
+        t.set("up",new KeyboardSim.Up());
 
         t.set("__index", t);
         test.setmetatable(t);
@@ -62,27 +63,41 @@ public class LuaState {
     }
 
     static final public class KeyboardSim {
+        static final Robot robot;
+
+        static {
+            try {
+                robot = new Robot();
+            } catch (AWTException e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         static public class Down extends org.luaj.vm2.lib.OneArgFunction  {
             @Override
             public LuaValue call(LuaValue arg) {
-                try {
-
-                    var code=arg.checkint();
-                    if(Keys.containsValue(code)) {
-                        //System.out.println(code + " checkInt");a
-                        //System.out.println(KeyEvent.getKeyText(code));
-                        var a = new java.awt.Robot();
-                        a.keyPress(code);
-                    }
-                } catch (AWTException e) {
-                    return null;
-                    //Ignore
+                var code=arg.checkint();
+                if(Keys.containsValue(code)) {
+                    robot.keyPress(code);
+                }else{
+                    System.err.println("LuaState.Robot.Down: Invalid Key Code ("+code+")");
+                    //log error
                 }
-
                 return null;
             }
-
+        }
+        static public class Up extends org.luaj.vm2.lib.OneArgFunction {
+            @Override
+            public LuaValue call(LuaValue arg) {
+                var code=arg.checkint();
+                if(Keys.containsValue(code)) {
+                    robot.keyRelease(code);
+                }else{
+                    System.err.println("LuaState.Robot.Up: Invalid Key Code");
+                    //log error
+                }
+                return null;
+            }
         }
     }
 
