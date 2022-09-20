@@ -74,6 +74,7 @@ User has a google account
 ## JSON Schema
 ```
 {
+  name:"project name",  
   keymaps:
   [
     {
