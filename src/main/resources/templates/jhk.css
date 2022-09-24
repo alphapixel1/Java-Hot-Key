@@ -42,6 +42,9 @@ main {
     margin: 4px 2px;
     cursor: pointer;
 }
+.button1 {background-color: #4CAF50;} /* Edit: Green */
+.button2 {background-color: #008CBA;} /* Blue: Compile */
+.button3 {background-color: #FF0000} /* Delete: Red */
 
 textarea {
     background: url(https://i.imgur.com/2cOaJ.png) no-repeat local;
