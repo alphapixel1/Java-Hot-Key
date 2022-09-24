@@ -56,3 +56,12 @@ textarea {
     width: 1210px;
     height: 500px;
 }
+
+footer {
+    text-align: right;
+    font-size: 65%;
+    font-style: italic;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+}
