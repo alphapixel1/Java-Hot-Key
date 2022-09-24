@@ -1,5 +1,50 @@
-textarea{
-    background: url(http://i.imgur.com/2cOaJ.png) no-repeat local;
+body {
+    width: auto;
+    background-color: #FFFFFF;
+    font-family: "Arial", serif;
+}
+
+header {
+    height: 75px;
+    text-align: left;
+}
+
+h1 {
+    color: #000000;
+    text-align: center;
+}
+
+main {
+    width: auto;
+    padding-right: 50px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+    display: block;
+    font-size: 14pt;
+}
+
+#wrapper {
+    margin: auto;
+    background-color: #FFFFFF;
+    min-width: 700px;
+    max-width: 1250px;
+    border: 6px solid #000000;
+}
+
+.button {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+textarea {
+    background: url(https://i.imgur.com/2cOaJ.png) no-repeat local;
     padding-left: 35px;
     padding-top: 10px;
     border-color:#ccc;
