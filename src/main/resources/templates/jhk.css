@@ -1,6 +1,6 @@
 body {
     width: auto;
-    background-color: #FFFFFF;
+    background-color: #181818;
     font-family: "Arial", serif;
 }
 
@@ -47,6 +47,8 @@ main {
 .button3 {background-color: #008CBA;} /* Compile: Blue */
 .button4 {background-color: #78b4ff} /* Create New Keybind: Aqua */
 .button5 {background-color: #808080} /* View Keybinds: Grey (Undecided on color, will probably change. */
+.button6 {background-color: #c7c7c7
+} /* Toggle Light Mode */
 
 textarea {
     background: url(https://i.imgur.com/2cOaJ.png) no-repeat local;
@@ -64,4 +66,8 @@ footer {
     padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 10px;
+}
+
+.light-mode {
+    background-color: white;
 }
