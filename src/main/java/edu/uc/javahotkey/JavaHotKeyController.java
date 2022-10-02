@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class JavaHotKeyController {
@@ -25,11 +26,8 @@ public class JavaHotKeyController {
         project.setName("Sample Project");
         KeyMap keyMap = new KeyMap();
         keyMap.setFunctionName("func_name");
-        keyMap.setKeymap(new ArrayList<Integer>());
-        keyMap.getKeymap().add(17);
-        keyMap.getKeymap().add(65);
-        project.setKeymaps(new ArrayList<KeyMap>());
-        project.getKeymaps().add(keyMap);
+        keyMap.setKeymap(new ArrayList<>(List.of(17, 65)));
+        project.setKeymaps(new ArrayList<>(List.of(keyMap)));
         return project;
     }
 
