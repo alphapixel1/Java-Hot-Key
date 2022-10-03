@@ -17,7 +17,7 @@ public class JavaHotKeyController {
         return "index";
     }
 
-    @GetMapping("/sampleJsonSchema")
+    @GetMapping("/GetHotKeys{keyMap}")
     @ResponseBody
     public Project sampleJsonSchema() {
         Project project = new Project();
