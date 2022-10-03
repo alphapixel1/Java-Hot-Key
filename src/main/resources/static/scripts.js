@@ -8,3 +8,8 @@ function lightModeToggle() {
         button.innerHTML = "Light Mode";
     }
 }
+
+function keybindPopup() {
+    const element = document.getElementById("keybind-popup");
+    element.classList.toggle("hidden");
+}

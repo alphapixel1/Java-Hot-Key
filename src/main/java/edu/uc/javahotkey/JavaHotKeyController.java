@@ -25,10 +25,10 @@ public class JavaHotKeyController {
         project.setName("Sample Project");
         KeyMap keyMap = new KeyMap();
         keyMap.setFunctionName("func_name");
-        keyMap.setKeymap(new ArrayList<Integer>());
+        keyMap.setKeymap(new ArrayList<>());
         keyMap.getKeymap().add(17);
         keyMap.getKeymap().add(65);
-        project.setKeymaps(new ArrayList<KeyMap>());
+        project.setKeymaps(new ArrayList<>());
         project.getKeymaps().add(keyMap);
         return project;
     }
