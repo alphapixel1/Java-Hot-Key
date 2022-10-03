@@ -26,8 +26,6 @@ public class JavaHotKeyController {
         KeyMap keyMap = new KeyMap();
         keyMap.setFunctionName("func_name");
         keyMap.setKeymap(new ArrayList<Integer>());
-        keyMap.getKeymap().add(17);
-        keyMap.getKeymap().add(65);
         project.setKeymaps(new ArrayList<KeyMap>());
         project.getKeymaps().add(keyMap);
         return project;
