@@ -18,11 +18,12 @@ public class JavaHotKeyController {
     }
 
     @GetMapping("/GetHotKeys{keyMap}")
+    public ResponseEntity fetchAllHotKeys(){return new ResponseEntity(HttpStatus.OK);}
     @ResponseBody
     public Project sampleJsonSchema() {
         Project project = new Project();
         project.setLua("function func_name(keys)\\nDown(Key.A)\\nSleep(25)--ms\\nUp(Key.A)\\nPress(Key.B)\\nen");
-        project.setName("Sample Project");
+        project.setName("Java Hot-Keys");
         KeyMap keyMap = new KeyMap();
         keyMap.setFunctionName("func_name");
         keyMap.setKeymap(new ArrayList<Integer>());
