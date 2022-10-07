@@ -1,0 +1,73 @@
+body {
+    padding-top: 35px;
+    width: auto;
+    background-color: #181818;
+    font-family: "Arial", serif;
+}
+
+header {
+    height: 75px;
+    text-align: left;
+}
+
+h1 {
+    color: #000000;
+    text-align: center;
+}
+
+main {
+    width: auto;
+    padding-right: 50px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+    display: block;
+    font-size: 14pt;
+}
+
+#wrapper {
+    margin: auto;
+    background-color: #FFFFFF;
+    min-width: 700px;
+    max-width: 1250px;
+    border: 6px solid #6b6b6b;
+}
+
+.button {
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.button1 {background-color: #4CAF50;} /* Edit: Green */
+.button2 {background-color: #FF0000} /* Delete: Red */
+.button3 {background-color: #008CBA;} /* Compile: Blue */
+.button4 {background-color: #78b4ff} /* Create New Keybind: Aqua */
+.button5 {background-color: #808080} /* View Keybinds: Grey (Undecided on color, will probably change. */
+.button6 {background-color: #c7c7c7} /* Toggle Light Mode */
+
+textarea {
+    background: url(https://i.imgur.com/2cOaJ.png) no-repeat local;
+    padding-left: 35px;
+    padding-top: 10px;
+    border-color:#ccc;
+    width: 1210px;
+    height: 500px;
+}
+
+footer {
+    text-align: right;
+    font-size: 80%;
+    font-style: italic;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+}
+
+.light-mode {
+    background-color: white;
+}
