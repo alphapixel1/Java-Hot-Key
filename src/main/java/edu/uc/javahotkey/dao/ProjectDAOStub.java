@@ -14,7 +14,7 @@ public class ProjectDAOStub implements IProjectDAO {
     Map<Integer,Project> allProjects = new HashMap<>();
 
     @Override
-    public List<Project> fetchAllLaborActions() {
+    public List<Project> fetchAllProjects() {
         return new ArrayList(allProjects.values());
     }
 

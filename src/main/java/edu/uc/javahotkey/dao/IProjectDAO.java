@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface IProjectDAO {
 
-    List<Project> fetchAllLaborActions();
-    Project save(Project laborAction);
+    List<Project> fetchAllProjects();
+    Project save(Project project);
     void delete(int id);
     Project fetchById(int id);
 
