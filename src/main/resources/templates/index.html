@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <title>Java Hot Key</title>
@@ -9,6 +10,7 @@
 <body>
 <div id="wrapper">
 <h1>Java Hot Key</h1>
+    <h2 th:text="${project}"></h2>
 <label>
     <textarea rows="10" cols="40"></textarea>
 </label>
