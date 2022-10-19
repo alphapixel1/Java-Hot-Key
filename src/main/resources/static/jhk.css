@@ -1,4 +1,4 @@
-body {
+/*body {
     padding-top: 35px;
     width: auto;
     background-color: #181818;
@@ -43,15 +43,14 @@ main {
     margin: 4px 2px;
     cursor: pointer;
 }
-.button1 {background-color: #4CAF50;} /* Edit: Green */
-.button2 {background-color: #FF0000} /* Delete: Red */
-.button3 {background-color: #008CBA;} /* Compile: Blue */
-.button4 {background-color: #78b4ff} /* Create New Keybind: Aqua */
-.button5 {background-color: #808080} /* View Keybinds: Grey (Undecided on color, will probably change. */
-.button6 {background-color: #c7c7c7} /* Toggle Light Mode */
+.button1 {background-color: #4CAF50;}
+.button2 {background-color: #FF0000}
+.button3 {background-color: #008CBA;}
+.button4 {background-color: #78b4ff}
+.button5 {background-color: #808080}
+.button6 {background-color: #c7c7c7}
 
 textarea {
-    background: url(https://i.imgur.com/2cOaJ.png) no-repeat local;
     padding-left: 35px;
     padding-top: 10px;
     border-color:#ccc;
@@ -71,4 +70,4 @@ footer {
 .light-mode {
     background-color: white;
 }
-
+*/

@@ -4,25 +4,27 @@
     <title>Java Hot Key</title>
     <meta charset = "UTF-8">
     <link rel="stylesheet" href = "jhk.css">
-    <script src ="codemirror/lib/codemirror.js"/></script>
-    <script src ="codemirror/lib/codemirror.css" rel ="stylesheet"/>
     <script type= "text/javascript" src="scripts.js"></script>
-    <script src="codemirror/mode/javascript/javascript.js"></script>
-    <link href="codemirror/theme/dracula.css" rel="stylesheet"/>
+    <script src ="codemirror/lib/codemirror.js"></script>
+    <link href ="codemirror/lib/codemirror.css" rel ="stylesheet"/>
+    <script src="codemirror/mode/xml/xml.js"></script>
+    <link href ="codemirror/theme/dracula.css" rel="stylesheet"/>
+
+
 </head>
 <body>
 <div id="wrapper">
-<h1>Java Hot Key</h1>
-<label>
-    <textarea id="editor" rows="10" cols="40"></textarea>
+    <h1>Java Hot Key</h1>
+    <label>
+        <textarea id="editor" rows="10" cols="40"></textarea>
+    </label>
     <script>
-        var editor = CodeMirror.fromTextArea(
-            document.getElementById('editor'),{
-                mode:""
-            }
-        )
+        let editor = CodeMirror.fromTextArea(document.getElementById('editor'),{
+            mode:"xml",
+            theme: "dracula",
+            lineNumbers:true
+        });
     </script>
-</label>
 
     <form action="#" th:action="@{/saveProject}" th:object="${Project}" method = "GET">
         <button name= "Edit" class="button button1">Edit</button>
@@ -40,4 +42,5 @@
     </footer>
 </div>
 </body>
-</html>
+</html
+
