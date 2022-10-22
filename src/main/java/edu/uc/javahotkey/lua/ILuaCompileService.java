@@ -3,5 +3,8 @@ package edu.uc.javahotkey.lua;
 import edu.uc.javahotkey.dto.Project;
 
 public interface ILuaCompileService {
-    LuaState CompileProject(Project p);
+    org.luaj.vm2.Globals CompileProject(Project p);
+
+    RunTimeMessage TestMethod(String methodName);
+
 }
