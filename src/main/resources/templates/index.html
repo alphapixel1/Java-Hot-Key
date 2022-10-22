@@ -10,7 +10,7 @@
 <div id="wrapper">
     <h1>Java Hot Key</h1>
     <h2 th:text="${project}"></h2>
-    <form action="#" th:action="@{/saveProject}" th:object="${save}" method="post" id="saveLua">
+    <form action="#" th:action="@{/saveProject}" th:object="${project}" method="post" id="saveLua">
         <label>
             <textarea rows="10" cols="40"></textarea>
         </label>
