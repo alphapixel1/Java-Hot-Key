@@ -1,10 +1,13 @@
 package edu.uc.javahotkey.lua;
 
 import edu.uc.javahotkey.dto.Project;
+import org.springframework.lang.Nullable;
 
 public interface ILuaCompileService {
-    org.luaj.vm2.Globals CompileProject(Project p);
+    LuaCompileData CompileProject(Project p);
 
-    RunTimeMessage TestMethod(String methodName);
+    RunTimeMessage TestMethod(LuaCompileData data,String methodName);
+
+
 
 }
