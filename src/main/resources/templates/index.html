@@ -12,7 +12,7 @@
     <h2 th:text="${project}"></h2>
     <form action="#" th:action="@{/saveProject}" th:object="${project}" method="post" id="saveLua">
         <label>
-            <textarea rows="10" cols="40"></textarea>
+            <textarea id="luaEntry" rows="10" cols="40" th:field=""></textarea>
         </label>
         <!-- these buttons are unfinished demos. placed them and styled them for the purposes of UI demonstration -->
         <!-- we need to go through these buttons and see which ones we'll actually need, some of them seem unnecessary -->
@@ -20,8 +20,8 @@
         <button type="reset" class="button button2">Delete</button>
         <button type="button" class="button button3">Compile</button>
         <button type="submit" class="button button4">Create Keybind</button>
-        <button type="button" onclick="keybindPopup()" class="button button5">View Keybinds</button>
         <!-- NEEDS TO BE DONE USING THYMELEAF -->
+        <button type="button" onclick="keybindPopup()" class="button button5">View Keybinds</button>
         <button type="button" onclick="lightModeToggle()" class="button button6">Light Mode</button>
     </form>
     <footer>
