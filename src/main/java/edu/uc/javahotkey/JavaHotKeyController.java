@@ -24,6 +24,10 @@ public class JavaHotKeyController {
     public String index() {
         return "index";
     }
+    @RequestMapping("/syntax")
+    public String syntax() {
+        return "syntax";
+    }
 
     @GetMapping("/findProject")
     @ResponseBody
