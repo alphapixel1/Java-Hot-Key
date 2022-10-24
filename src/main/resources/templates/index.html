@@ -1,29 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
     <title>Java Hot Key</title>
-    <meta charset = "UTF-8">
-    <link rel="stylesheet" href = "jhk.css">
-    <script type= "text/javascript" src="scripts.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/jhk.css">
+    <script type="text/javascript" src="/static/scripts.js"></script>
 </head>
-<body>
+<body onload="modalWindow()">
 <div id="wrapper">
-<h1>Java Hot Key</h1>
+    <h1>Java Hot Key</h1>
     <h2 th:text="${project}"></h2>
-<label>
-    <textarea rows="10" cols="40"></textarea>
-</label>
-    <!-- these buttons are unfinished demos. placed them and styled them for the purposes of UI demonstration -->
-    <button class="button button1">Edit</button>
-    <button class="button button2">Delete</button>
-    <button class="button button3">Compile</button>
-    <button class="button button4">Create Keybind</button>
-    <button onclick="keybindPopup()" class="button button5">View Keybinds</button> <!-- NEEDS TO BE DONE USING THYEMLEAF -->
-    <button onclick="lightModeToggle()" class="button button6">Light Mode</button>
+    <form action="#" th:action="@{/saveProject}" th:object="${project}" method="post" id="saveLua">
+        <label>
+            <textarea id="luaEntry" rows="10" cols="40" th:field=""></textarea>
+        </label>
+        <!-- these buttons are unfinished demos. placed them and styled them for the purposes of UI demonstration -->
+        <!-- we need to go through these buttons and see which ones we'll actually need, some of them seem unnecessary -->
+        <button type="button" class="button button1">Edit</button>
+        <button type="reset" class="button button2">Delete</button>
+        <button type="button" class="button button3">Compile</button>
+        <button type="submit" class="button button4">Create Keybind</button>
+    </form>
+    <button id="myBtn" class="button button5">View Keybinds</button>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <!-- NEEDS TO BE DONE USING THYMELEAF -->
+            <p>Implement Thymeleaf in here to pull existing keybinds</p>
+        </div>
+    </div>
+    <button type="button" onclick="lightModeToggle()" class="button button6">Light Mode</button>
     <footer>
         Copyright &copy; 2022 University of Cincinnati, IT4045C<br>
-        <a href="https://github.com/alphapixel1/Java-Hot-Key/">Check Out Our GitHub Repo!</a>
+        <a href="https://github.com/alphapixel1/Java-Hot-Key/" target="_blank" rel="noopener noreferrer">Check Out Our
+            GitHub Repo!</a>
     </footer>
 </div>
 </body>
