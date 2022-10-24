@@ -4,16 +4,15 @@
 <head>
     <title>Java Hot Key</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/static/jhk.css">
-    <script type="text/javascript" src="/static/scripts.js"></script>
+    <link rel="stylesheet" href="jhk.css">
+    <script type="text/javascript" src="scripts.js"></script>
 </head>
 <body onload="modalWindow()">
 <div id="wrapper">
     <h1>Java Hot Key</h1>
-    <h2 th:text="${project}"></h2>
-    <form action="#" th:action="@{/saveProject}" th:object="${project}" method="post" id="saveLua">
+    <form action="#" th:action="@{/saveProjectModel}" th:object="${project}" method="post" id="saveLua">
         <label>
-            <textarea id="luaEntry" rows="10" cols="40" th:field=""></textarea>
+            <textarea id="luaEntry" rows="10" cols="40" th:field="${project}"></textarea>
         </label>
         <!-- these buttons are unfinished demos. placed them and styled them for the purposes of UI demonstration -->
         <!-- we need to go through these buttons and see which ones we'll actually need, some of them seem unnecessary -->

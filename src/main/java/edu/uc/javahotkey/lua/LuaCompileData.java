@@ -1,7 +1,6 @@
 package edu.uc.javahotkey.lua;
 
 import org.luaj.vm2.Globals;
-
 public class LuaCompileData {
 
     private final Globals global;
