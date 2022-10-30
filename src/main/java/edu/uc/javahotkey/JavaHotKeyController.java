@@ -31,16 +31,14 @@ public class JavaHotKeyController {
 
     @GetMapping("/findAllProjects")
     @ResponseBody
-    public List<Project> findAllProjects() {
+    public List<Project> findAllProjects(){
         return javaHotKeyService.fetchAllProjects();
     }
 
 
     @GetMapping("/findProject")
     @ResponseBody
-    public Project findProject(@RequestParam("id") int id) {
-        return javaHotKeyService.fetchById(id);
-    }
+    public Project findProject(@RequestParam("id") int id) {return javaHotKeyService.fetchById(id);}
 
     @PostMapping("/saveProject")
     @ResponseBody
