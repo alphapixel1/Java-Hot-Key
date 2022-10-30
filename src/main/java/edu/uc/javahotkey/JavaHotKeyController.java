@@ -38,7 +38,9 @@ public class JavaHotKeyController {
 
     @GetMapping("/findProject")
     @ResponseBody
-    public Project findProject(@RequestParam("id") int id) {return javaHotKeyService.fetchById(id);}
+    public Project findProject(@RequestParam("id") int id){
+        return javaHotKeyService.fetchById(id);
+    }
 
     @PostMapping("/saveProject")
     @ResponseBody
