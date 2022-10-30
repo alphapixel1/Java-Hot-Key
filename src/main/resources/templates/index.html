@@ -21,12 +21,11 @@
         <button type="button" class="button button3">Compile</button>
         <button type="submit" class="button button4">Create Keybind</button>
     </form>
-    <button id="myBtn" class="button button5">View Keybinds</button>
+    <button id="myBtn" onclick="viewKeybindsModal()" class="button button5">View Keybinds</button>
+    <button id="helpBtn" onclick="helpModal()" class="button button7">Helpful Information</button>
     <div id="myModal" class="modal">
-        <div class="modal-content">
+        <div id="modal-content" class="modal-content">
             <span class="close">&times;</span>
-            <!-- NEEDS TO BE DONE USING THYMELEAF -->
-            <p>Implement Thymeleaf in here to pull existing keybinds</p>
         </div>
     </div>
     <button type="button" onclick="lightModeToggle()" class="button button6">Light Mode</button>
