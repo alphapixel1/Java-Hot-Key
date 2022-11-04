@@ -75,6 +75,11 @@ main {
     background-color: #c7c7c7
 }
 
+/* Help Keybind: goldenrod */
+.button7 {
+    background-color: goldenrod;
+}
+
 textarea {
     background: url(https://i.imgur.com/2cOaJ.png) no-repeat local;
     padding-left: 35px;

@@ -9,15 +9,70 @@ function lightModeToggle() {
     }
 }
 
+function openModal() {
+    const modal = document.getElementById("myModal");
+
+    modal.style.display = "block";
+}
+
+function resetModal() {
+    const modalContent = document.getElementById("modal-content");
+    let closeSpan = document.createElement("span");
+    closeSpan.setAttribute("class", "close");
+    closeSpan.innerText = '×';
+
+    modalContent.innerHTML = '';
+    modalContent.appendChild(closeSpan);
+    modalWindow();
+}
+
+function viewKeybindsModal() {
+    const modalContent = document.getElementById("modal-content");
+
+    let pElement = document.createElement("p");
+    let text = document.createTextNode("Implement Thymeleaf in here to pull existing keybinds");
+
+    resetModal()
+    pElement.appendChild(text);
+    modalContent.appendChild(pElement);
+    openModal();
+}
+
+function helpModal() {
+    const modalContent = document.getElementById("modal-content");
+
+    resetModal()
+
+    let mainHeading = document.createElement("h3");
+    mainHeading.innerText = "Getting Started with Java Hot Key";
+
+    let firstParagraph = document.createElement("p");
+    firstParagraph.innerText = "Java Hot Key uses Lua to define key functions. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+
+    let luaReferenceHeading = document.createElement("h4");
+    luaReferenceHeading.innerText = "Lua Reference";
+
+    let luaReferenceParagraph = document.createElement("p");
+    luaReferenceParagraph.innerText = "Below you can find a link to a Lua programming book!";
+
+    let luaReferenceLink = document.createElement("a");
+    luaReferenceLink.setAttribute("href", "https://www.lua.org/pil/contents.html");
+    luaReferenceLink.setAttribute("target", "_blank");
+    luaReferenceLink.setAttribute("rel", "noopener noreferrer")
+    luaReferenceLink.innerText = "Programming in Lua (first edition)";
+
+    modalContent.appendChild(mainHeading);
+    modalContent.appendChild(firstParagraph);
+    modalContent.appendChild(luaReferenceHeading);
+    modalContent.appendChild(luaReferenceParagraph);
+    modalContent.appendChild(luaReferenceLink);
+
+    openModal();
+}
+
 function modalWindow() {
     const modal = document.getElementById("myModal");
-    const btn = document.getElementById("myBtn");
     const span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
 
 // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
