@@ -26,7 +26,9 @@ public class JavaHotKeyController {
     @RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("project", "I am the project model and I'm passed to the view");
-        return "index";
+
+        //return "index";
+        return "projectsPage";
     }
 
     @GetMapping("/findAllProjects")
