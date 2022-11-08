@@ -16,15 +16,12 @@
             bottom: 0;
             background-color: rgba(0,0,0,0.5); /* Black background with opacity */
             z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-            cursor: pointer; /* Add a pointer on hover */
         }
         #overlayBox{
             margin: auto auto auto auto;
             width:300px;
             height: 300px;
             background-color: black;
-            cursor: default;
-
         }
         #overlayBox h1, #overlayBox p, #overlay label{
             color: white;
@@ -97,17 +94,17 @@
     <div id="overlayBox">
         <h1 style="text-align: center">Type Keybind</h1>
         <p id="overlayKeybindText">Start Typing</p>
-        <div>
-            <input id="overlayControl" onclick="toggleModifier(this)" name="ctrl" type="checkbox">
-            <label>Control</label>
+        <div class="form-check">
+            <input id="overlayControl"  class="form-check-input" onclick="toggleModifier(this)" name="ctrl" type="checkbox">
+            <label for="overlayControl" class="form-check-label">Control</label>
         </div>
-        <div>
-            <input id="overlayAlt" onclick="toggleModifier(this)" name="alt" type="checkbox">
-            <label>Alt</label>
+        <div class="form-check">
+            <input id="overlayAlt" class="form-check-input" onclick="toggleModifier(this)" name="alt" type="checkbox">
+            <label for="overlayAlt" class="form-check-label">Alt</label>
         </div>
-        <div>
-            <input id="overlayShift" onclick="toggleModifier(this)" name="shift" type="checkbox">
-            <label>Shift</label>
+        <div class="form-check">
+            <input id="overlayShift" class="form-check-input" onclick="toggleModifier(this)" name="shift" type="checkbox">
+            <label for="overlayShift" class="form-check-label">Shift</label>
         </div>
         <button class="btn btn-danger" onclick="clearKeybind()">Clear</button>
         <button class="btn btn-primary" onclick="updateKeybind()">Done</button>
@@ -128,21 +125,8 @@
         </td>
     </tr>
 </template>
-<!--<template id="keybindTemplate">
-    <div class="keybind">
-        <div class="btn-group">
-            <label>Function Name:</label>
-            <input type="text" class="funcName" value="Unnamed">
-            <br>
-            <label>Keybind:</label>
-            <label class="keybindText">None</label>
-            <br>
-            <button class="btn btn-primary" type="button" onclick="editKeybind(this.parentElement)">Change</button>
-            <button class="btn btn-danger" onclick="deleteKeybind(this.parentElement)">Delete</button>
-        </div>
-    </div>
-</template>-->
-<table id="keybindsLoader" style="display: block">
+
+<table id="keybindsLoader" style="display: none">
     <tr th:each="map: ${project.keymaps}">
         <td class="name" th:text="${map.functionName}"></td>
         <td>

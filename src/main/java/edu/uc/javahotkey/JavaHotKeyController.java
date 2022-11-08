@@ -36,6 +36,14 @@ public class JavaHotKeyController {
         //return "index";
         return "projectsPage";
     }
+    @GetMapping("/search")
+    public String searchProjects(Model model, @RequestParam("q") String query){
+        var lowQuery=query.toLowerCase();
+
+        var projects=javaHotKeyService.fetchAllProjects().stream().filter(e->e.getName().toLowerCase().contains(lowQuery)).toList();
+        model.addAttribute("projects",projects);
+        return "projectsPage";
+    }
     @GetMapping("/edit")
     public String editProject(Model model, @RequestParam("id") int id){
         if(id>=0) {//project id's less than zero are new projects
@@ -50,6 +58,7 @@ public class JavaHotKeyController {
         }
         return "editProject";
     }
+
 
     /**
      * Updates/Saves the project changes
@@ -66,9 +75,7 @@ public class JavaHotKeyController {
         if(!keybindData.isEmpty()) {//saving the keybinds to the project
             var keymaps=new ArrayList<KeyMap>();
             for (String kbString: keybindData.split("\\.~\\.")) {
-
                 var s=kbString.split("~");
-
                 var map=new KeyMap();
                 map.functionName=s[0];
                 var keys=new ArrayList<Integer>();
@@ -117,7 +124,7 @@ public class JavaHotKeyController {
         return javaHotKeyService.fetchById(id);
     }
 
-    @PostMapping("/saveProject")
+  /*  @PostMapping("/saveProject")
     @ResponseBody
     public void saveProject(@RequestBody Project project, HttpServletResponse response) {
         try {
@@ -142,7 +149,7 @@ public class JavaHotKeyController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("project", javaHotKeyService.fetchAllProjects());
         return mav;
-    }
+    }*/
 
     @GetMapping("/sampleJsonSchema")
     @ResponseBody

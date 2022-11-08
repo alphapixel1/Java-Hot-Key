@@ -95,7 +95,7 @@ class Keybind{
     addKey(event){
         if(event.key.length==1){
             let k=event.key.toLowerCase().charCodeAt(0);
-            if(!this.keys.includes(k))
+            if(!isNaN(k) && k>0 &&!this.keys.includes(k))
                 this.keys.push(k);
         }
     }
@@ -110,15 +110,15 @@ class Keybind{
         return [...modifiers,...this.keys.map(e=>Keybind.getString(e).toUpperCase())].join(" + ");
     }
     toQueryString(){
-        let fname=this.elementNameInput().value;
-        let k=this.keys;
+        let name=this.elementNameInput().value;
+        let k=[...this.keys];
         if(this.ctrl)
             k.push(-1);
         if(this.alt)
             k.push(-2);
         if(this.shift)
             k.push(-3);
-        return fname+Keybind.delimiter()+k.join(",");
+        return name+Keybind.delimiter()+k.join(",");
     }
     elementNameInput(){
         return this.element.querySelector(".funcName")

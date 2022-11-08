@@ -5,27 +5,56 @@
     <title>Projects</title>
     <link rel="stylesheet" href="bootstrap.css" />
     <style>
-        .td{
+        td{
             vertical-align: middle;
         }
+        .container{
+            padding-top: 10px;
+        }
     </style>
+    <script>
+        window.onload=function (){
+            let search=new URLSearchParams(window.location.search).get('q');
+            if(search!=null){
+                document.getElementById("searchBar").value=search;
+            }
+        }
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="redirect:/" style="margin-left: 10px">Java Hot Key</a>
 </nav>
-<h2>Projects</h2>
-<a class="btn btn-primary" href="/edit?id=-1">Add Project</a>
-<table class="table">
-    <tr th:each="proj: ${projects}">
-        <td th:text="${proj.name}"></td>
-        <td>
-            <a class="btn btn-primary" th:href="'/edit?id='+${proj.id}">Edit</a>
-        </td>
-        <td>
-            <a class="btn btn-danger" th:href="'/delete?id='+${proj.id}">Delete</a>
-        </td>
-    </tr>
-</table>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <h2>Projects</h2>
+        </div>
+        <div class="col-sm">
+            <form class="input-group" method="get" action="/search">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="q" placeholder="Search Projects" id="searchBar" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="submit" style="border-radius: 0px 5px 5px 0;">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm">
+            <a class="btn btn-primary" href="/edit?id=-1" style="float:right">Add Project</a>
+        </div>
+
+
+    </div>
+    <table class="table">
+        <tr th:each="proj: ${projects}">
+            <td th:text="${proj.name}"></td>
+            <td>
+                <a class="btn btn-primary" th:href="'/edit?id='+${proj.id}">Edit</a>
+                <a class="btn btn-danger" th:href="'/delete?id='+${proj.id}">Delete</a>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
