@@ -3,6 +3,7 @@ package edu.uc.javahotkey;
 import edu.uc.javahotkey.dto.KeyMap;
 import edu.uc.javahotkey.dto.Project;
 import edu.uc.javahotkey.service.IJavaHotKeyService;
+import kotlin.NotImplementedError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,54 @@ public class JavaHotKeyController {
     @RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("project", "I am the project model and I'm passed to the view");
-
+        var p=findAllProjects();
+        //p.add(new Project(0,"test"));
+        //p.add(new Project(1,"test2"));
+        model.addAttribute("projects",p);
         //return "index";
         return "projectsPage";
     }
+    @GetMapping("/edit")
+    public String editProject(Model model, @RequestParam("id") int id){
+        if(id>=0) {//project id's less than zero are new projects
+            var p=findProject(id);
+            if(p==null){
+                throw new NotImplementedError();
+            }else {
+                model.addAttribute("project",p);
+            }
+        }else{
+            model.addAttribute("project",Project.Default());
+        }
+        return "editProject";
+    }
+
+    /**
+     * Updates/Saves the project changes
+     * @param id
+     * @param name
+     * @param lua
+     * @return
+     */
+    @PostMapping(value="/edit")
+    public String saveProject(@RequestParam("id") int id,@RequestParam("name") String name,@RequestParam("lua") String lua) {
+        Project p=new Project(id,name);
+        p.setLua(lua);
+        if (id >= 0) {
+            javaHotKeyService.save(p);
+        } else {
+            int nid=getNextAvailableProjectID();
+            p.setId(nid);
+            javaHotKeyService.save(p);
+        }
+        return "redirect:/";
+    }
+    @GetMapping("/delete")
+    public String deleteProject(@RequestParam("id") int id){
+        javaHotKeyService.delete(id);
+        return "redirect:/";
+    }
+
 
     @GetMapping("/findAllProjects")
     @ResponseBody
@@ -89,4 +134,16 @@ public class JavaHotKeyController {
         return project;
     }
 
+    /**
+     * Gets the next available project id
+     * @return the next available project id
+     */
+    @Deprecated//to be removed when autoid is added
+    private int getNextAvailableProjectID(){
+        int id=0;
+        while(findProject(id)!=null)
+            id++;
+        return id;
+    }
 }
+

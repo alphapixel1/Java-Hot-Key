@@ -11,4 +11,6 @@ public interface IProjectDAO {
     void delete(int id);
     Project fetchById(int id);
 
+    //Project update(Project p);
+
 }

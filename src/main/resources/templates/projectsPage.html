@@ -5,6 +5,18 @@
     <title>Projects</title>
 </head>
 <body>
-
+<h1>Java Hot Key</h1>
+<a href="/edit?id=-1">Add Project</a>
+<table>
+<tr th:each="proj: ${projects}">
+    <td th:text="${proj.name}"></td>
+    <td>
+        <a th:href="'/edit?id='+${proj.id}">Edit</a>
+    </td>
+    <td>
+        <a th:href="'/delete?id='+${proj.id}">Delete</a>
+    </td>
+</tr>
+</table>
 </body>
 </html>

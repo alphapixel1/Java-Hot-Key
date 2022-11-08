@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<h1>Java Hot Key</h1>
+<a href="/">Home</a>
+<br>
+<form method="post">
+    <input hidden th:field="${project.id}">
+    <label for="projectName">Project Name: </label>
+    <input id="projectName" th:field="${project.name}">
+    <br>
+    <textarea id="luaEntry" rows="10" cols="40" th:field="${project.lua}"></textarea>
+    <input type="submit" value="Save">
+    <a>Compile</a>
+    <input hidden name="keybindData" id="keybindData">
+</form>
+<div>
+    <h2>Keybinds</h2>
+    <button onclick="addKeybind()">Add</button>
+    <div id="keybindContainer">
+
+    </div>
+</div>
+<script>
+var $=function (id) {return document.getElementById(id)}
+function addKeybind(){
+    let template=$("keybindTemplate");
+    let container=$("keybindContainer");
+    let clone=template.content.cloneNode(true);
+    container.append(clone);
+}
+function deleteKeybind(keybindButton){
+    let kb=keybindButton.parentElement;
+    kb.parentElement.removeChild(kb);
+}
+</script>
+<template id="keybindTemplate">
+    <div class="keybind">
+        <label>Function Name:</label>
+        <input type="text" class="funcName">
+        <br>
+        <label>Keybind:</label>
+        <label>Keybind shit</label>
+        <br>
+        <button>Change</button>
+        <button onclick="deleteKeybind(this)">Delete</button>
+    </div>
+</template>
+</body>
+</html>
