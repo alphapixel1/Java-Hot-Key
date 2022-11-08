@@ -107,7 +107,10 @@ class Keybind{
             modifiers.push("Alt");
         if(this.shift)
             modifiers.push("Shift");
-        return [...modifiers,...this.keys.map(e=>Keybind.getString(e).toUpperCase())].join(" + ");
+        let k=[...modifiers,...this.keys.map(e=>Keybind.getString(e).toUpperCase())];
+        if(k.length==0)
+            return "None";
+        return k.join(" + ");
     }
     toQueryString(){
         let name=this.elementNameInput().value;

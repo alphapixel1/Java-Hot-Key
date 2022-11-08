@@ -18,13 +18,24 @@
             z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
         }
         #overlayBox{
-            margin: auto auto auto auto;
-            width:300px;
-            height: 300px;
-            background-color: black;
+            margin: 150px auto auto auto;
+            width:350px;
+            padding: 5px 5px 50px 5px;
+            border-radius: 20px;
+            background-color: #ffffff;
+            overflow: clip;
         }
-        #overlayBox h1, #overlayBox p, #overlay label{
-            color: white;
+        .overlayHeader{
+            border-radius: 15px 15px 0 0;
+        }
+        #overlayButtons{
+            width: fit-content;
+            float: right;
+        }
+        #overlayKeybindText{
+            margin-bottom: 0px;
+            text-align: center;
+            min-height: 24px;
         }
         textarea {
             background: url(https://i.imgur.com/2cOaJ.png) no-repeat local;
@@ -92,8 +103,12 @@
 </form>
 <div id="overlay">
     <div id="overlayBox">
-        <h1 style="text-align: center">Type Keybind</h1>
+        <div class="overlayHeader">
+            <h1 style="text-align: center">Edit Keybind</h1>
+        </div>
+        <hr>
         <p id="overlayKeybindText">Start Typing</p>
+        <small>Press Any Key.</small>
         <div class="form-check">
             <input id="overlayControl"  class="form-check-input" onclick="toggleModifier(this)" name="ctrl" type="checkbox">
             <label for="overlayControl" class="form-check-label">Control</label>
@@ -106,8 +121,10 @@
             <input id="overlayShift" class="form-check-input" onclick="toggleModifier(this)" name="shift" type="checkbox">
             <label for="overlayShift" class="form-check-label">Shift</label>
         </div>
-        <button class="btn btn-danger" onclick="clearKeybind()">Clear</button>
-        <button class="btn btn-primary" onclick="updateKeybind()">Done</button>
+        <div id="overlayButtons">
+            <button class="btn btn-danger" onclick="clearKeybind()">Clear</button>
+            <button class="btn btn-primary" onclick="updateKeybind()">Done</button>
+        </div>
     </div>
 </div>
 
