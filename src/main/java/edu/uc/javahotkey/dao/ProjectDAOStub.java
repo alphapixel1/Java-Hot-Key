@@ -11,7 +11,7 @@ import java.util.Map;
 @Repository
 public class ProjectDAOStub implements IProjectDAO {
 
-    Map<Integer,Project> allProjects = new HashMap<>();
+    Map<Integer, Project> allProjects = new HashMap<>();
 
     @Override
     public List<Project> fetchAllProjects() {
