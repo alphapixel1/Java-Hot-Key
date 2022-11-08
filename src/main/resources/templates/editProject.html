@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit</title>
+    <link rel="stylesheet" href="bootstrap.css" />
     <style>
         #overlay {
             position: fixed; /* Sit on top of the page content */
@@ -28,28 +29,70 @@
         #overlayBox h1, #overlayBox p, #overlay label{
             color: white;
         }
+        textarea {
+            background: url(https://i.imgur.com/2cOaJ.png) no-repeat local;
+            padding-left: 35px;
+            padding-top: 10px;
+            border-color: #ccc;
+            width: 710px;
+            height: 500px;
+            resize: none;
+        }
+        table{
+            width:100%;
+        }
+        table {
+            border: 1px solid;
+        }
+        td input{
+            width: 150px;
+        }
+        td {
+            vertical-align: middle;
+        }
     </style>
     <script src="editProjectScript.js"></script>
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/.." style="margin-left: 10px">Java Hot Key</a>
+</nav>
 <h1>Java Hot Key</h1>
-<a href="/">Home</a>
+<a href="redirect:/">Home</a>
 <br>
-<form method="post">
-    <input hidden th:field="${project.id}">
-    <label for="projectName">Project Name: </label>
-    <input id="projectName" th:field="${project.name}">
-    <br>
-    <textarea id="luaEntry" rows="10" cols="40" th:field="${project.lua}"></textarea>
-    <input type="submit" value="Save">
-    <a>Compile</a>
-    <input hidden name="keybindData" id="keybindData">
+<form method="post" class="container">
+    <div class="row">
+        <div class="col">
+            <input hidden th:field="${project.id}">
+            <label for="projectName">Project Name: </label>
+            <input id="projectName" th:field="${project.name}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>Lua</h3>
+            <textarea id="luaEntry" rows="10" cols="40" th:field="${project.lua}"></textarea>
+            <input type="submit" value="Save">
+            <a>Compile</a>
+            <input hidden name="keybindData" id="keybindData">
+        </div>
+        <div class="col">
+            <h2>Keybinds</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td style="width:166px">Function Name</td>
+                        <td>Keybind</td>
+                        <td style="width:173px">
+                            <button onclick="addKeybind()"  style="float: right;" type="button" class="btn btn-primary">Add</button>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody id="keybindContainer"></tbody>
+            </table>
+        </div>
+    </div>
 </form>
-<div>
-    <h2>Keybinds</h2>
-    <button onclick="addKeybind()">Add</button>
-    <div id="keybindContainer"></div>
-</div>
 <div id="overlay">
     <div id="overlayBox">
         <h1 style="text-align: center">Type Keybind</h1>
@@ -66,24 +109,39 @@
             <input id="overlayShift" onclick="toggleModifier(this)" name="shift" type="checkbox">
             <label>Shift</label>
         </div>
-        <button  onclick="clearKeybind()">Clear</button>
-        <button onclick="updateKeybind()">Done</button>
+        <button class="btn btn-danger" onclick="clearKeybind()">Clear</button>
+        <button class="btn btn-primary" onclick="updateKeybind()">Done</button>
     </div>
 </div>
 
-
 <template id="keybindTemplate">
-    <div class="keybind">
-        <label>Function Name:</label>
-        <input type="text" class="funcName" value="Unnamed">
-        <br>
-        <label>Keybind:</label>
-        <label class="keybindText">Keybind shit</label>
-        <br>
-        <button onclick="editKeybind(this.parentElement)">Change</button>
-        <button onclick="deleteKeybind(this.parentElement)">Delete</button>
-    </div>
+    <tr>
+        <td>
+            <input type="text" class="funcName" value="Unnamed">
+        </td>
+        <td>
+            <label class="keybindText">None</label>
+        </td>
+        <td>
+            <button class="btn btn-primary" type="button" onclick="editKeybind(this.parentElement.parentElement)">Change</button>
+            <button class="btn btn-danger" onclick="deleteKeybind(this.parentElement.parentElement)">Delete</button>
+        </td>
+    </tr>
 </template>
+<!--<template id="keybindTemplate">
+    <div class="keybind">
+        <div class="btn-group">
+            <label>Function Name:</label>
+            <input type="text" class="funcName" value="Unnamed">
+            <br>
+            <label>Keybind:</label>
+            <label class="keybindText">None</label>
+            <br>
+            <button class="btn btn-primary" type="button" onclick="editKeybind(this.parentElement)">Change</button>
+            <button class="btn btn-danger" onclick="deleteKeybind(this.parentElement)">Delete</button>
+        </div>
+    </div>
+</template>-->
 <table id="keybindsLoader" style="display: block">
     <tr th:each="map: ${project.keymaps}">
         <td class="name" th:text="${map.functionName}"></td>

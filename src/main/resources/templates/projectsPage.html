@@ -3,20 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Projects</title>
+    <link rel="stylesheet" href="bootstrap.css" />
+    <style>
+        .td{
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
-<h1>Java Hot Key</h1>
-<a href="/edit?id=-1">Add Project</a>
-<table>
-<tr th:each="proj: ${projects}">
-    <td th:text="${proj.name}"></td>
-    <td>
-        <a th:href="'/edit?id='+${proj.id}">Edit</a>
-    </td>
-    <td>
-        <a th:href="'/delete?id='+${proj.id}">Delete</a>
-    </td>
-</tr>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="redirect:/" style="margin-left: 10px">Java Hot Key</a>
+</nav>
+<h2>Projects</h2>
+<a class="btn btn-primary" href="/edit?id=-1">Add Project</a>
+<table class="table">
+    <tr th:each="proj: ${projects}">
+        <td th:text="${proj.name}"></td>
+        <td>
+            <a class="btn btn-primary" th:href="'/edit?id='+${proj.id}">Edit</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" th:href="'/delete?id='+${proj.id}">Delete</a>
+        </td>
+    </tr>
 </table>
 </body>
 </html>
