@@ -3,6 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit</title>
+    <style>
+        #overlay {
+            position: fixed; /* Sit on top of the page content */
+            display: none; /* Hidden by default */
+            width: 100%; /* Full width (cover the whole page) */
+            height: 100%; /* Full height (cover the whole page) */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+            z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+            cursor: pointer; /* Add a pointer on hover */
+        }
+        #overlayBox{
+            margin: auto auto auto auto;
+            width:300px;
+            height: 300px;
+            background-color: black;
+            cursor: default;
+
+        }
+        #overlayBox h1, #overlayBox p, #overlay label{
+            color: white;
+        }
+    </style>
+    <script src="editProjectScript.js"></script>
 </head>
 <body>
 <h1>Java Hot Key</h1>
@@ -21,34 +48,51 @@
 <div>
     <h2>Keybinds</h2>
     <button onclick="addKeybind()">Add</button>
-    <div id="keybindContainer">
-
+    <div id="keybindContainer"></div>
+</div>
+<div id="overlay">
+    <div id="overlayBox">
+        <h1 style="text-align: center">Type Keybind</h1>
+        <p id="overlayKeybindText">Start Typing</p>
+        <div>
+            <input id="overlayControl" onclick="toggleModifier(this)" name="ctrl" type="checkbox">
+            <label>Control</label>
+        </div>
+        <div>
+            <input id="overlayAlt" onclick="toggleModifier(this)" name="alt" type="checkbox">
+            <label>Alt</label>
+        </div>
+        <div>
+            <input id="overlayShift" onclick="toggleModifier(this)" name="shift" type="checkbox">
+            <label>Shift</label>
+        </div>
+        <button  onclick="clearKeybind()">Clear</button>
+        <button onclick="updateKeybind()">Done</button>
     </div>
 </div>
-<script>
-var $=function (id) {return document.getElementById(id)}
-function addKeybind(){
-    let template=$("keybindTemplate");
-    let container=$("keybindContainer");
-    let clone=template.content.cloneNode(true);
-    container.append(clone);
-}
-function deleteKeybind(keybindButton){
-    let kb=keybindButton.parentElement;
-    kb.parentElement.removeChild(kb);
-}
-</script>
+
+
 <template id="keybindTemplate">
     <div class="keybind">
         <label>Function Name:</label>
-        <input type="text" class="funcName">
+        <input type="text" class="funcName" value="Unnamed">
         <br>
         <label>Keybind:</label>
-        <label>Keybind shit</label>
+        <label class="keybindText">Keybind shit</label>
         <br>
-        <button>Change</button>
-        <button onclick="deleteKeybind(this)">Delete</button>
+        <button onclick="editKeybind(this.parentElement)">Change</button>
+        <button onclick="deleteKeybind(this.parentElement)">Delete</button>
     </div>
 </template>
+<table id="keybindsLoader" style="display: block">
+    <tr th:each="map: ${project.keymaps}">
+        <td class="name" th:text="${map.functionName}"></td>
+        <td>
+            <ul>
+                <li th:each="key: ${map.keymap}" th:text="${key}"></li>
+            </ul>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

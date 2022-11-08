@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.Keymap;
+import java.lang.constant.Constable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,8 +59,34 @@ public class JavaHotKeyController {
      * @return
      */
     @PostMapping(value="/edit")
-    public String saveProject(@RequestParam("id") int id,@RequestParam("name") String name,@RequestParam("lua") String lua) {
+    public String saveProject(@RequestParam("id") int id,@RequestParam("name") String name,@RequestParam("lua") String lua, @RequestParam("keybindData") String keybindData) {
+        System.out.println(keybindData);
         Project p=new Project(id,name);
+
+        if(!keybindData.isEmpty()) {//saving the keybinds to the project
+            var keymaps=new ArrayList<KeyMap>();
+            for (String kbString: keybindData.split("\\.~\\.")) {
+
+                var s=kbString.split("~");
+
+                var map=new KeyMap();
+                map.functionName=s[0];
+                var keys=new ArrayList<Integer>();
+                if(s.length>1) {
+                    for (String n : s[1].split(",")) {
+                        try {
+                            keys.add(Integer.parseInt(n));
+                        } catch (Exception e) {
+                            throw new NotImplementedError();
+                        }
+                    }
+                }
+                map.keymap=keys;
+                keymaps.add(map);
+            }
+            p.setKeymaps(keymaps);
+        }
+
         p.setLua(lua);
         if (id >= 0) {
             javaHotKeyService.save(p);
