@@ -21,6 +21,7 @@ public class JavaHotKeyController {
     @Autowired
     IJavaHotKeyService javaHotKeyService;
 
+
     private static final Logger log = LoggerFactory.getLogger(JavaHotKeyController.class);
 
     @RequestMapping("/")
