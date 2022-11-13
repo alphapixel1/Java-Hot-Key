@@ -4,7 +4,8 @@ import edu.uc.javahotkey.dto.Project;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class JavaHotKeyApplicationTests {
@@ -14,12 +15,20 @@ class JavaHotKeyApplicationTests {
     }
 
     @Test
-    void verifyProjectName(){
-        String name = "random unit test";
+    void verifyProjectID(){
+        int id = 2;
+        Project project = new Project(2,"");
+        project.setId(id);
+       assertEquals(id,project.getId());
+    }
 
-        var project = new Project();
+
+    @Test
+    void verifyProjectName(){
+        String name = "random";
+        Project project = new Project(0,"random");
         project.setName(name);
-        assertEquals(name,Project.getName());
+        assertEquals(name,project.getName());
     }
 
 }
