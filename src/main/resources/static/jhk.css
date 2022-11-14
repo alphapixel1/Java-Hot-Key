@@ -116,6 +116,14 @@ main {
     color: #928869;
 }
 
+#codeEditor {
+    padding-left: calc(3.5rem + 5px);
+    width: 100%;
+    /* Determine appearance of code editor */
+    background-color: #272822;
+    border-color: #272822;
+    color: #ffffff;
+}
 
 footer {
     text-align: right;
