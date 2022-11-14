@@ -25,6 +25,7 @@ public class JavaHotKeyController {
 
     @RequestMapping("/")
     public String index(Model model) {
+        log.trace("Index page accessed");
         model.addAttribute("project", "I am the project model and I'm passed to the view");
         return "index";
     }
@@ -32,6 +33,7 @@ public class JavaHotKeyController {
     @GetMapping("/findAllProjects")
     @ResponseBody
     public List<Project> findAllProjects() {
+        log.trace("Finding all projects");
         return javaHotKeyService.fetchAllProjects();
     }
 
@@ -45,6 +47,7 @@ public class JavaHotKeyController {
     @PostMapping("/saveProject")
     @ResponseBody
     public void saveProject(@RequestBody Project project, HttpServletResponse response) {
+        log.trace("Saving a project");
         try {
             javaHotKeyService.save(project);
             response.setStatus(HttpServletResponse.SC_CREATED);
