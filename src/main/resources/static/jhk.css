@@ -80,14 +80,24 @@ main {
     background-color: goldenrod;
 }
 
-textarea {
-    background: url(https://i.imgur.com/2cOaJ.png) no-repeat local;
-    padding-left: 35px;
-    padding-top: 10px;
-    border-color: #ccc;
-    width: 1210px;
-    height: 500px;
+#codeEditor, #lineCounter {
+    font-family: lucida console, courier new, courier, monospace;
+    margin: 0;
+    padding: 10px 0;
+    height: 75vh;
+    border-radius: 0;
     resize: none;
+    font-size: 16px;
+    line-height: 1.2;
+    outline: none;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#lineCounter:focus-visible,
+#codeEditor:focus-visible {
+    outline: none;
 }
 
 footer {

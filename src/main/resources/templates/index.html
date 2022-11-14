@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="/static/jhk.css">
     <script type="text/javascript" src="/static/scripts.js"></script>
 </head>
-<body onload="modalWindow()">
+<body onload="modalWindow(); codeEditor()">
 <div id="wrapper">
     <h1>Java Hot Key</h1>
     <form action="#" th:action="@{/saveProjectModel}" th:object="${project}" method="post" id="saveLua">
         <label>
-            <textarea id="luaEntry" rows="10" cols="40" th:field="${project}"></textarea>
+            <textarea id='lineCounter' wrap='off' readonly>1.</textarea>
+            <textarea id='codeEditor' wrap='off' th:field="${project}"></textarea>
         </label>
         <!-- these buttons are unfinished demos. placed them and styled them for the purposes of UI demonstration -->
         <!-- we need to go through these buttons and see which ones we'll actually need, some of them seem unnecessary -->
