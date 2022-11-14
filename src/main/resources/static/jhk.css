@@ -100,6 +100,23 @@ main {
     outline: none;
 }
 
+#lineCounter {
+    display: flex;
+    border-color: transparent;
+    overflow-y: hidden;
+    text-align: right;
+    box-shadow: none;
+    color: #707070;
+    background-color: #d8d8d8;
+    position: absolute;
+    width: 3.5rem;
+    /* Determine appearance of line counter */
+    background-color: #3E3D32;
+    border-color: #3E3D32;
+    color: #928869;
+}
+
+
 footer {
     text-align: right;
     font-size: 80%;
