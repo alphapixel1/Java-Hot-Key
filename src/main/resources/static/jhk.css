@@ -111,18 +111,18 @@ main {
     position: absolute;
     width: 3.5rem;
     /* Determine appearance of line counter */
-    background-color: #3E3D32;
-    border-color: #3E3D32;
-    color: #928869;
+    background-color: #575757;
+    border-color: #575757;
+    color: #4ae710;
 }
 
 #codeEditor {
     padding-left: calc(3.5rem + 5px);
     width: 100%;
     /* Determine appearance of code editor */
-    background-color: #272822;
-    border-color: #272822;
-    color: #ffffff;
+    background-color: #e0e0e0;
+    border-color: #dedcdc;
+    color: #000000;
 }
 
 footer {
