@@ -7,6 +7,7 @@ import edu.uc.javahotkey.lua.ILuaCompileService;
 import edu.uc.javahotkey.lua.LuaCompiler;
 import edu.uc.javahotkey.service.IJavaHotKeyService;
 import kotlin.NotImplementedError;
+import net.bytebuddy.utility.nullability.MaybeNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,9 @@ public class JavaHotKeyController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        //model.addAttribute("project", "I am the project model and I'm passed to the view");
+        log.trace("Indexing projects");
         var p=findAllProjects();
-        //p.add(new Project(0,"test"));
-        //p.add(new Project(1,"test2"));
+
         model.addAttribute("projects",p);
         //return "index";
         return "projectsPage";
@@ -38,22 +38,25 @@ public class JavaHotKeyController {
     @GetMapping("/search")
     public String searchProjects(Model model, @RequestParam("q") String query){
         var lowQuery=query.toLowerCase();
-
+        log.trace("Searching projects: "+query);
         var projects=javaHotKeyService.fetchAllProjects().stream().filter(e->e.getName().toLowerCase().contains(lowQuery)).toList();
         model.addAttribute("projects",projects);
         return "projectsPage";
     }
     @GetMapping("/edit")
     public String editProject(Model model, @RequestParam("id") int id){
-        //model.addAttribute("CompileData","this is the main edit attribute");
+
         if(id>=0) {//project id's less than zero are new projects
             var p=findProject(id);
             if(p==null){
+                log.error("Project Could Not Be Found: ID="+id);
                 throw new NotImplementedError();
             }else {
+                log.trace("Editing Project: ID="+id);
                 model.addAttribute("project",p);
             }
         }else{
+            log.trace("Editing Default Project");
             model.addAttribute("project",Project.Default());
         }
         return "editProject";
@@ -73,6 +76,7 @@ public class JavaHotKeyController {
      */
     @PostMapping(value="/edit")
     public String saveProject(Model model, @RequestParam("id") int id,@RequestParam("name") String name,@RequestParam("lua") String lua, @RequestParam("keybindData") String keybindData, @RequestParam("isCompile") boolean isCompile) {
+        log.trace("Saving Project: ID="+id);
         Project p= projectFromParams(id,name,lua,keybindData);
         if(isCompile){
             ILuaCompileService service=new LuaCompiler();
@@ -92,7 +96,12 @@ public class JavaHotKeyController {
     }
     @GetMapping("/delete")
     public String deleteProject(@RequestParam("id") int id){
-        javaHotKeyService.delete(id);
+        try {
+            javaHotKeyService.delete(id);
+            log.trace("Deleted Project: ID="+id);
+        }catch (Exception e){
+            log.error("Error Deleting Project: ID="+id);
+        }
         return "redirect:/";
     }
 
@@ -104,10 +113,16 @@ public class JavaHotKeyController {
     }
 
 
+    @MaybeNull
     @GetMapping("/findProject")
     @ResponseBody
     public Project findProject(@RequestParam("id") int id) {
-        return javaHotKeyService.fetchById(id);
+        try {
+            return javaHotKeyService.fetchById(id);
+        }catch (Exception e){
+            log.error("Unable To Find Project: ID="+id);
+            return null;
+        }
     }
 
     @GetMapping("/sampleJsonSchema")
