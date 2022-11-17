@@ -5,6 +5,15 @@
     <title>Edit</title>
     <link rel="stylesheet" href="bootstrap.css" />
     <style>
+        span.error{
+            color:red;
+        }
+        span.success{
+            color:green;
+        }
+        ul.output{
+            list-style: none;
+        }
         #overlay {
             position: fixed; /* Sit on top of the page content */
             display: none; /* Hidden by default */
@@ -66,12 +75,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/.." style="margin-left: 10px">Java Hot Key</a>
 </nav>
-<h1>Java Hot Key</h1>
 <a href="redirect:/">Home</a>
 <br>
 <form method="post" class="container">
     <div class="row">
         <div class="col">
+
+            <input style="display: none" id="isCompile" name="isCompile" value="false"/>
             <input hidden th:field="${project.id}">
             <label for="projectName">Project Name: </label>
             <input id="projectName" th:field="${project.name}">
@@ -81,8 +91,11 @@
         <div class="col">
             <h3>Lua</h3>
             <textarea id="luaEntry" rows="10" cols="40" th:field="${project.lua}"></textarea>
-            <input type="submit" value="Save">
-            <a>Compile</a>
+            <div>
+                <input type="submit" value="Save" class="btn btn-primary">
+                <input type="submit" value="Compile" class="btn btn-secondary" onclick="document.querySelector('#isCompile').value=true;">
+                <a href="/Documentation" class="btn btn-dark" style="color:white" target="_blank">Documentation</a>
+            </div>
             <input hidden name="keybindData" id="keybindData">
         </div>
         <div class="col">
@@ -99,6 +112,16 @@
                 </thead>
                 <tbody id="keybindContainer"></tbody>
             </table>
+        </div>
+    </div>
+    <div class="row" th:if="${CompileData}!=null">
+        <div class="card" style="padding: 0px; margin:10px 5px 10px 0px">
+            <p class="card card-header">Compiler Output</p>
+            <ul class="card-body output">
+                <li th:each="msg: ${CompileData}">
+                    <span th:class="${msg.isError? 'error':'success'}" th:text="${msg.Message}"></span>
+                </li>
+            </ul>
         </div>
     </div>
 </form>
@@ -132,7 +155,7 @@
 <template id="keybindTemplate">
     <tr>
         <td>
-            <input type="text" class="funcName" value="Unnamed">
+            <input type="text" class="funcName" onchange="updateKeybindInput()" value="Unnamed">
         </td>
         <td>
             <label class="keybindText">None</label>

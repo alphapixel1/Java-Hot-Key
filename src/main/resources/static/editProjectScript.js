@@ -11,13 +11,15 @@ window.onload=function (){
         let keys=[...row.querySelectorAll("li")].map(e=>parseInt(e.innerHTML));
         let kb=new Keybind(name,keys);
         container.append(kb.element);
+        kb.element.querySelector(".funcName").value=name;
         keybinds.push(kb);
     }
 
     updateKeybindInput();
-    loader.parentElement.removeChild(loader);
+ //   loader.parentElement.removeChild(loader);
 
 }
+
 
 
 function addKeybind(){

@@ -2,6 +2,9 @@ package edu.uc.javahotkey;
 
 import edu.uc.javahotkey.dto.KeyMap;
 import edu.uc.javahotkey.dto.Project;
+import edu.uc.javahotkey.lua.CompilerMessage;
+import edu.uc.javahotkey.lua.ILuaCompileService;
+import edu.uc.javahotkey.lua.LuaCompiler;
 import edu.uc.javahotkey.service.IJavaHotKeyService;
 import kotlin.NotImplementedError;
 import org.slf4j.Logger;
@@ -10,11 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.Keymap;
-import java.lang.constant.Constable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class JavaHotKeyController {
 
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("project", "I am the project model and I'm passed to the view");
+        //model.addAttribute("project", "I am the project model and I'm passed to the view");
         var p=findAllProjects();
         //p.add(new Project(0,"test"));
         //p.add(new Project(1,"test2"));
@@ -46,6 +45,7 @@ public class JavaHotKeyController {
     }
     @GetMapping("/edit")
     public String editProject(Model model, @RequestParam("id") int id){
+        //model.addAttribute("CompileData","this is the main edit attribute");
         if(id>=0) {//project id's less than zero are new projects
             var p=findProject(id);
             if(p==null){
@@ -58,6 +58,10 @@ public class JavaHotKeyController {
         }
         return "editProject";
     }
+    @GetMapping("/Documentation")
+    public String documentation(){
+    return "documentation";
+    }
 
 
     /**
@@ -68,41 +72,23 @@ public class JavaHotKeyController {
      * @return
      */
     @PostMapping(value="/edit")
-    public String saveProject(@RequestParam("id") int id,@RequestParam("name") String name,@RequestParam("lua") String lua, @RequestParam("keybindData") String keybindData) {
-        System.out.println(keybindData);
-        Project p=new Project(id,name);
-
-        if(!keybindData.isEmpty()) {//saving the keybinds to the project
-            var keymaps=new ArrayList<KeyMap>();
-            for (String kbString: keybindData.split("\\.~\\.")) {
-                var s=kbString.split("~");
-                var map=new KeyMap();
-                map.functionName=s[0];
-                var keys=new ArrayList<Integer>();
-                if(s.length>1) {
-                    for (String n : s[1].split(",")) {
-                        try {
-                            keys.add(Integer.parseInt(n));
-                        } catch (Exception e) {
-                            throw new NotImplementedError();
-                        }
-                    }
-                }
-                map.keymap=keys;
-                keymaps.add(map);
+    public String saveProject(Model model, @RequestParam("id") int id,@RequestParam("name") String name,@RequestParam("lua") String lua, @RequestParam("keybindData") String keybindData, @RequestParam("isCompile") boolean isCompile) {
+        Project p= projectFromParams(id,name,lua,keybindData);
+        if(isCompile){
+            ILuaCompileService service=new LuaCompiler();
+            model.addAttribute("CompileData",service.TestProject(p));
+            model.addAttribute("project",p);
+            return "editProject";
+        }else {
+            if (id >= 0) {
+                javaHotKeyService.save(p);
+            } else {
+                int nid = getNextAvailableProjectID();
+                p.setId(nid);
+                javaHotKeyService.save(p);
             }
-            p.setKeymaps(keymaps);
+            return "redirect:/";
         }
-
-        p.setLua(lua);
-        if (id >= 0) {
-            javaHotKeyService.save(p);
-        } else {
-            int nid=getNextAvailableProjectID();
-            p.setId(nid);
-            javaHotKeyService.save(p);
-        }
-        return "redirect:/";
     }
     @GetMapping("/delete")
     public String deleteProject(@RequestParam("id") int id){
@@ -123,33 +109,6 @@ public class JavaHotKeyController {
     public Project findProject(@RequestParam("id") int id) {
         return javaHotKeyService.fetchById(id);
     }
-
-  /*  @PostMapping("/saveProject")
-    @ResponseBody
-    public void saveProject(@RequestBody Project project, HttpServletResponse response) {
-        try {
-            javaHotKeyService.save(project);
-            response.setStatus(HttpServletResponse.SC_CREATED);
-            log.info("Created project with id ", project.getId());
-        } catch (Exception e) {
-            log.error("Unable to save DTO", e);
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @PostMapping("/saveProjectModel")
-    public ModelAndView saveProjectModel(Model model, Project project) {
-        javaHotKeyService.save(project);
-        ModelAndView mav = new ModelAndView();
-        return mav;
-    }
-
-    @GetMapping("/getAllProjectsModel")
-    public ModelAndView getProjectsModel() {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("project", javaHotKeyService.fetchAllProjects());
-        return mav;
-    }*/
 
     @GetMapping("/sampleJsonSchema")
     @ResponseBody
@@ -179,6 +138,41 @@ public class JavaHotKeyController {
         while(findProject(id)!=null)
             id++;
         return id;
+    }
+
+    /**
+     * Converts params to project
+     * @param id
+     * @param name
+     * @param lua
+     * @param keybindData
+     * @return the project class
+     */
+    private Project projectFromParams(int id,String name,String lua, String keybindData){
+        Project p=new Project(id,name);
+        if(!keybindData.isEmpty()) {//saving the keybinds to the project
+            var keymaps=new ArrayList<KeyMap>();
+            for (String kbString: keybindData.split("\\.~\\.")) {
+                var s=kbString.split("~");
+                var map=new KeyMap();
+                map.functionName=s[0];
+                var keys=new ArrayList<Integer>();
+                if(s.length>1) {
+                    for (String n : s[1].split(",")) {
+                        try {
+                            keys.add(Integer.parseInt(n));
+                        } catch (Exception e) {
+                            //throw new NotImplementedError();
+                        }
+                    }
+                }
+                map.keymap=keys;
+                keymaps.add(map);
+            }
+            p.setKeymaps(keymaps);
+        }
+        p.setLua(lua);
+        return p;
     }
 }
 

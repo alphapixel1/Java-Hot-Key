@@ -190,3 +190,9 @@ end
 function up(keys)
 
 end
+function sleep(ms)
+
+end
+--function print(a)
+
+--end
