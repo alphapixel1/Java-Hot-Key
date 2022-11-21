@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+    <link rel="stylesheet" href="bootstrap.css" />
+    <style>
+        span.error{
+            color:red;
+        }
+        span.success{
+            color:green;
+        }
+        ul.output{
+            list-style: none;
+        }
+        #overlay {
+            position: fixed; /* Sit on top of the page content */
+            display: none; /* Hidden by default */
+            width: 100%; /* Full width (cover the whole page) */
+            height: 100%; /* Full height (cover the whole page) */
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+            z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+        }
+        #overlayBox{
+            margin: 150px auto auto auto;
+            width:350px;
+            padding: 5px 5px 50px 5px;
+            border-radius: 20px;
+            background-color: #ffffff;
+            overflow: clip;
+            border: 1px solid #aaaaaa;
+        }
+        .overlayHeader{
+            border-radius: 15px 15px 0 0;
+        }
+        #overlayButtons{
+            width: fit-content;
+            float: right;
+        }
+        #overlayKeybindText{
+            margin-bottom: 0px;
+            text-align: center;
+            min-height: 24px;
+        }
+        textarea {
+            background: url(https://i.imgur.com/2cOaJ.png) no-repeat local;
+            padding-left: 35px;
+            padding-top: 10px;
+            border-color: #ccc;
+            width: 710px;
+            height: 500px;
+            resize: none;
+        }
+        table{
+            width:100%;
+        }
+        table {
+            border: 1px solid;
+        }
+        td input{
+            width: 150px;
+        }
+        td {
+            vertical-align: middle;
+        }
+    </style>
+    <script src="editProjectScript.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/.." style="margin-left: 10px">Java Hot Key</a>
+</nav>
+<a href="redirect:/">Home</a>
+<br>
+<form method="post" class="container">
+    <div class="row">
+        <div class="col">
+
+            <input style="display: none" id="isCompile" name="isCompile" value="false"/>
+            <input hidden th:field="${project.id}">
+            <label for="projectName">Project Name: </label>
+            <input id="projectName" th:field="${project.name}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>Lua</h3>
+            <textarea id="luaEntry" rows="10" cols="40" th:field="${project.lua}"></textarea>
+            <div>
+                <input type="submit" value="Save" class="btn btn-primary">
+                <input type="submit" value="Compile" class="btn btn-secondary" onclick="document.querySelector('#isCompile').value=true;">
+                <a href="/Documentation" class="btn btn-dark" style="color:white" target="_blank">Documentation</a>
+            </div>
+            <input hidden name="keybindData" id="keybindData">
+        </div>
+        <div class="col">
+            <h2>Keybinds</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td style="width:166px">Function Name</td>
+                        <td>Keybind</td>
+                        <td style="width:173px">
+                            <button onclick="addKeybind()"  style="float: right;" type="button" class="btn btn-primary">Add</button>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody id="keybindContainer"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row" th:if="${CompileData}!=null">
+        <div class="card" style="padding: 0px; margin:10px 5px 10px 0px">
+            <p class="card card-header">Compiler Output</p>
+            <ul class="card-body output">
+                <li th:each="msg: ${CompileData}">
+                    <span th:class="${msg.isError? 'error':'success'}" th:text="${msg.Message}"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</form>
+<div id="overlay">
+    <div id="overlayBox">
+        <div class="overlayHeader">
+            <h1 style="text-align: center">Edit Keybind</h1>
+        </div>
+        <hr>
+        <p id="overlayKeybindText">Start Typing</p>
+        <small>Press Any Key.</small>
+        <div class="form-check">
+            <input id="overlayControl"  class="form-check-input" onclick="toggleModifier(this)" name="ctrl" type="checkbox">
+            <label for="overlayControl" class="form-check-label">Control</label>
+        </div>
+        <div class="form-check">
+            <input id="overlayAlt" class="form-check-input" onclick="toggleModifier(this)" name="alt" type="checkbox">
+            <label for="overlayAlt" class="form-check-label">Alt</label>
+        </div>
+        <div class="form-check">
+            <input id="overlayShift" class="form-check-input" onclick="toggleModifier(this)" name="shift" type="checkbox">
+            <label for="overlayShift" class="form-check-label">Shift</label>
+        </div>
+        <div id="overlayButtons">
+            <button class="btn btn-danger" onclick="clearKeybind()">Clear</button>
+            <button class="btn btn-primary" onclick="updateKeybind()">Done</button>
+        </div>
+    </div>
+</div>
+
+<template id="keybindTemplate">
+    <tr>
+        <td>
+            <input type="text" class="funcName" onchange="updateKeybindInput()" value="Unnamed">
+        </td>
+        <td>
+            <label class="keybindText">None</label>
+        </td>
+        <td>
+            <button class="btn btn-primary" type="button" onclick="editKeybind(this.parentElement.parentElement)">Change</button>
+            <button class="btn btn-danger" onclick="deleteKeybind(this.parentElement.parentElement)">Delete</button>
+        </td>
+    </tr>
+</template>
+
+<table id="keybindsLoader" style="display: none">
+    <tr th:each="map: ${project.keymaps}">
+        <td class="name" th:text="${map.functionName}"></td>
+        <td>
+            <ul>
+                <li th:each="key: ${map.keymap}" th:text="${key}"></li>
+            </ul>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

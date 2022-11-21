@@ -14,4 +14,6 @@ public interface IProjectDAO {
 
     Project fetchById(int id);
 
+    //Project update(Project p);
+
 }
