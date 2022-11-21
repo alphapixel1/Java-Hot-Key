@@ -133,13 +133,14 @@ public class JavaHotKeyController {
         project.setId(0);
         project.setLua("function func_name(keys)\\nDown(Key.A)\\nSleep(25)--ms\\nUp(Key.A)\\nPress(Key.B)\\nen");
         project.setName("Sample Project");
-        KeyMap keyMap = new KeyMap();
+        /*KeyMap keyMap = new KeyMap();
         keyMap.setFunctionName("func_name");
         keyMap.setKeymap(new ArrayList<>());
         keyMap.getKeymap().add(17);
-        keyMap.getKeymap().add(65);
-        project.setKeymaps(new ArrayList<>());
-        project.getKeymaps().add(keyMap);
+        keyMap.getKeymap().add(65);*/
+        project.setKeymapString("func_name~49,-1");
+        //project.setKeymaps(new ArrayList<>());
+        //project.getKeymaps().add(keyMap);
         return project;
     }
 
@@ -164,8 +165,9 @@ public class JavaHotKeyController {
      * @return the project class
      */
     private Project projectFromParams(int id,String name,String lua, String keybindData){
+        System.err.println(keybindData);
         Project p=new Project(id,name);
-        if(!keybindData.isEmpty()) {//saving the keybinds to the project
+        /*if(!keybindData.isEmpty()) {//saving the keybinds to the project
             var keymaps=new ArrayList<KeyMap>();
             for (String kbString: keybindData.split("\\.~\\.")) {
                 var s=kbString.split("~");
@@ -185,7 +187,8 @@ public class JavaHotKeyController {
                 keymaps.add(map);
             }
             p.setKeymaps(keymaps);
-        }
+        }*/
+        p.setKeymapString(keybindData);
         p.setLua(lua);
         return p;
     }
