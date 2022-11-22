@@ -5,11 +5,14 @@ import lombok.Data;
 import lombok.NonNull;
 import lombok.ToString;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+@Entity
+public @Data class Project {
 
-@Data
-public class Project {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @NonNull
     private int id;
     @NonNull
@@ -17,7 +20,17 @@ public class Project {
     //private ArrayList<KeyMap> keymaps;
     private String keymapString;
     private String lua;
-    public static Project Default(){
+
+    public Project() {
+
+    }
+
+    public Project(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public static Project Default() {
         var p=new Project(-1,"Unnamed");
         //p.keymaps=new ArrayList<>();
         p.keymapString=null;

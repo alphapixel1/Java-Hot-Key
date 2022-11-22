@@ -1,8 +1,6 @@
 package edu.uc.javahotkey;
 
-import edu.uc.javahotkey.dto.KeyMap;
 import edu.uc.javahotkey.dto.Project;
-import edu.uc.javahotkey.lua.CompilerMessage;
 import edu.uc.javahotkey.lua.ILuaCompileService;
 import edu.uc.javahotkey.lua.LuaCompiler;
 import edu.uc.javahotkey.service.IJavaHotKeyService;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -84,6 +81,8 @@ public class JavaHotKeyController {
             model.addAttribute("project",p);
             return "editProject";
         }else {
+
+            /*
             if (id >= 0) {
                 javaHotKeyService.save(p);
             } else {
@@ -91,6 +90,8 @@ public class JavaHotKeyController {
                 p.setId(nid);
                 javaHotKeyService.save(p);
             }
+             */
+            javaHotKeyService.save(p);
             return "redirect:/";
         }
     }
@@ -133,14 +134,7 @@ public class JavaHotKeyController {
         project.setId(0);
         project.setLua("function func_name(keys)\\nDown(Key.A)\\nSleep(25)--ms\\nUp(Key.A)\\nPress(Key.B)\\nen");
         project.setName("Sample Project");
-        /*KeyMap keyMap = new KeyMap();
-        keyMap.setFunctionName("func_name");
-        keyMap.setKeymap(new ArrayList<>());
-        keyMap.getKeymap().add(17);
-        keyMap.getKeymap().add(65);*/
         project.setKeymapString("func_name~49,-1");
-        //project.setKeymaps(new ArrayList<>());
-        //project.getKeymaps().add(keyMap);
         return project;
     }
 
@@ -167,27 +161,6 @@ public class JavaHotKeyController {
     private Project projectFromParams(int id,String name,String lua, String keybindData){
         System.err.println(keybindData);
         Project p=new Project(id,name);
-        /*if(!keybindData.isEmpty()) {//saving the keybinds to the project
-            var keymaps=new ArrayList<KeyMap>();
-            for (String kbString: keybindData.split("\\.~\\.")) {
-                var s=kbString.split("~");
-                var map=new KeyMap();
-                map.functionName=s[0];
-                var keys=new ArrayList<Integer>();
-                if(s.length>1) {
-                    for (String n : s[1].split(",")) {
-                        try {
-                            keys.add(Integer.parseInt(n));
-                        } catch (Exception e) {
-                            //throw new NotImplementedError();
-                        }
-                    }
-                }
-                map.keymap=keys;
-                keymaps.add(map);
-            }
-            p.setKeymaps(keymaps);
-        }*/
         p.setKeymapString(keybindData);
         p.setLua(lua);
         return p;
