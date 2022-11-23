@@ -63,3 +63,12 @@ td input {
 td {
     vertical-align: middle;
 }
+
+footer {
+    text-align: right;
+    font-size: 80%;
+    font-style: italic;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+}
