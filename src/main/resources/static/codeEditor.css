@@ -1,0 +1,44 @@
+#codeEditor, #lineCounter {
+    font-family: lucida console, courier new, courier, monospace;
+    margin: 0;
+    padding: 10px 0;
+    height: 75vh;
+    border-radius: 0;
+    resize: none;
+    font-size: 16px;
+    line-height: 1.2;
+    outline: none;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#lineCounter:focus-visible,
+#codeEditor:focus-visible {
+    outline: none;
+}
+
+#lineCounter {
+    display: flex;
+    border-color: transparent;
+    overflow-y: hidden;
+    text-align: right;
+    box-shadow: none;
+    color: #707070;
+    background-color: #d8d8d8;
+    position: absolute;
+    width: 3.5rem;
+    /* Determine appearance of line counter */
+    background-color: #575757;
+    border-color: #575757;
+    color: #ffffff;
+}
+
+#codeEditor {
+    padding-left: calc(3.5rem + 5px);
+    width: 100%;
+    /* Determine appearance of code editor */
+    background-color: #e0e0e0;
+    border-color: #dedcdc;
+    color: #000000;
+}
