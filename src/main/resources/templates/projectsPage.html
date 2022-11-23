@@ -3,40 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Projects</title>
-    <link rel="stylesheet" href="bootstrap.css" />
+    <link rel="stylesheet" href="/static/bootstrap.css"/>
     <style>
-        td{
+        td {
             vertical-align: middle;
         }
-        .container{
+
+        .container {
             padding-top: 10px;
         }
-        table{
+
+        table {
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
         }
-        td:nth-child(2) div{
+
+        td:nth-child(2) div {
             float: right;
             width: fit-content;
         }
-        form{
+
+        form {
             max-width: 300px;
             float: right;
         }
     </style>
     <script>
-        window.onload=function (){
-            let search=new URLSearchParams(window.location.search).get('q');
-            if(search!=null){
-                document.getElementById("searchBar").value=search;
+        window.onload = function () {
+            let search = new URLSearchParams(window.location.search).get('q');
+            if (search != null) {
+                document.getElementById("searchBar").value = search;
             }
         }
     </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="redirect:/" style="margin-left: 10px">Java Hot Key</a>
+    <a class="navbar-brand" href="/templates/editProject.html" style="margin-left: 10px">Java Hot Key</a>
+    <a class="navbar-brand" href="/templates/projectsPage.html" style="margin-left: 10px">Projects</a>
 </nav>
 <div class="container">
     <div class="row">
@@ -48,7 +53,8 @@
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" name="q" placeholder="Search Projects" id="searchBar">
                     <div class="input-group-append">
-                        <button class="btn btn-secondary" type="submit" style="border-radius: 0px 5px 5px 0;">Search</button>
+                        <button class="btn btn-secondary" type="submit" style="border-radius: 0px 5px 5px 0;">Search
+                        </button>
                     </div>
                 </div>
             </form>
@@ -57,23 +63,23 @@
     </div>
     <table class="table">
         <thead>
-            <td>
-                <h4>Name</h4>
-            </td>
-            <td>
-                <a class="btn btn-primary" href="/edit?id=-1" style="float:right">Add Project</a>
-            </td>
+        <td>
+            <h4>Name</h4>
+        </td>
+        <td>
+            <a class="btn btn-primary" href="/edit?id=-1" style="float:right">Add Project</a>
+        </td>
         </thead>
         <tbody>
-            <tr th:each="proj: ${projects}">
-                <td th:text="${proj.name}"></td>
-                <td>
-                    <div>
-                        <a class="btn btn-primary" th:href="'/edit?id='+${proj.id}">Edit</a>
-                        <a class="btn btn-danger" th:href="'/delete?id='+${proj.id}">Delete</a>
-                    </div>
-                </td>
-            </tr>
+        <tr th:each="proj: ${projects}">
+            <td th:text="${proj.name}"></td>
+            <td>
+                <div>
+                    <a class="btn btn-primary" th:href="'/edit?id='+${proj.id}">Edit</a>
+                    <a class="btn btn-danger" th:href="'/delete?id='+${proj.id}">Delete</a>
+                </div>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
