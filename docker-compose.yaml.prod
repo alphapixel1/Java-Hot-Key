@@ -1,0 +1,53 @@
+version: '3.9'
+services:
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: javahotkey
+      SQL_INTERNAL_PORT: 3306
+      SQL_CLIENT_PORT: 3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    expose:
+        - 3306
+    networks:
+      - jhk-network
+
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - jhk-network
+
+  app:
+    image: maven:3-amazoncorretto-17
+    depends_on:
+     - db
+    build: ./
+    restart: always
+    ports:
+      - 80:8080
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+    networks:
+      - jhk-network
+
+networks:
+  jhk-network:
+    name: jhk-network
+
+volumes:
+  mysql-data:
+  m2:
