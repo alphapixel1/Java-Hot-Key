@@ -6,6 +6,7 @@ import edu.uc.javahotkey.dto.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,29 +16,27 @@ public class JavaHotKeyService implements IJavaHotKeyService {
 
     private static final Logger log = LoggerFactory.getLogger(JavaHotKeyService.class);
     @Autowired
-    IProjectDAO projectDAOStub;
+    @Qualifier("jhk-sql")
+    IProjectDAO projectDAO;
 
     @Override
     public List<Project> fetchAllProjects() {
-        return projectDAOStub.fetchAllProjects();
+        return projectDAO.fetchAllProjects();
     }
 
     @Override
     public Project save(Project project) {
-        return projectDAOStub.save(project);
+        return projectDAO.save(project);
     }
 
     @Override
     public void delete(int id) {
-        projectDAOStub.delete(id);
+        projectDAO.delete(id);
     }
 
     @Override
     public Project fetchById(int id) {
-        return projectDAOStub.fetchById(id);
+        return projectDAO.fetchById(id);
     }
-
-
-
 
 }
