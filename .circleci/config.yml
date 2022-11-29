@@ -12,8 +12,8 @@ jobs: # a collection of steps
           DB_DRIVER: com.mysql.cj.jdbc.Driver
           DB_PASS: javahotkey
       - image: circleci/mysql:5.7.36
-      environment:
-          MYSQL_ROOT_PASSWORD: javahotkey
+        environment:
+            MYSQL_ROOT_PASSWORD: javahotkey
 
 
     steps: # a collection of executable commands
