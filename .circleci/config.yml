@@ -5,7 +5,13 @@ jobs: # a collection of steps
     working_directory: ~/circleci-demo-java-spring # directory where steps will run
 
     docker: # run the steps with Docker
-      - image: circleci/maven:3-amazoncorretto-17 # ...with this image as the primary container; this is where all `steps` will run
+      - image: circleci/openjdk:11-stretch # ...with this image as the primary container; this is where all `steps` will run
+        environment:
+          DB_ROOT_USER: root
+          DB_URL: jdbc:mysql://localhost:3306/javahotkey
+          DB_DRIVER: com.mysql.cj.jdbc.Driver
+          DB_PASS: javahotket
+      - image: circleci/mysql:5.7.36
 
     steps: # a collection of executable commands
 
@@ -15,12 +21,32 @@ jobs: # a collection of steps
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
 
+      - run:
+          name: Wait for Database Connection
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+
+      - run: 
+          name: Update Packages
+          command: sudo apt-get update
+          
+      - run: 
+          name: Install MySQL-Client
+          command: sudo apt-get install mysql-client # Install mysql client
+
+      - run: 
+          name: Create Database
+          command: mysql -h 127.0.0.1 -u root -e "create database javahotkey" # create database
+
+      - run: 
+          name: Create Database User
+          command: mysql -h 127.0.0.1 -u root -e "CREATE USER 'root'@'%' IDENTIFIED BY 'root;GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' REQUIRE NONE WITH GRANT OPTION MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;" # create user
+
       - run: mvn dependency:go-offline # gets the project dependencies
 
       - save_cache: # saves the project dependencies
           paths:
             - ~/.m2
-          key: javahotkey{ checksum "pom.xml" }}
+          key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
 
       - run: mvn package # run the actual tests
 
@@ -30,5 +56,5 @@ jobs: # a collection of steps
 
       - store_artifacts: # store the uberjar as an artifact
           # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: target/javahotkey-0.0.1-SNAPSHOT
+          path: target/demo-java-spring-0.0.1-SNAPSHOT.jar
       # See https://circleci.com/docs/2.0/deployment-integrations/ for deploy examples
