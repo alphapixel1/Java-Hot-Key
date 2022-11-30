@@ -18,9 +18,10 @@
 <form method="post" class="container">
     <div class="row">
         <div class="col">
-
+            <label hidden for="isCompile">Compiled</label>
             <input style="display: none" id="isCompile" name="isCompile" value="false"/>
-            <input hidden th:field="${project.id}">
+            <label hidden for="th"></label>
+            <input hidden th:field="${project.id}" id="th">
             <label for="projectName">Project Name: </label>
             <input id="projectName" th:field="${project.name}">
         </div>
@@ -28,10 +29,11 @@
     <div class="row">
         <div class="col">
             <h3>Lua Code Input</h3>
+            <label hidden for="keybindData">Keybind Data</label>
             <input hidden name="keybindData" id="keybindData">
         </div>
         <label>
-            <textarea id='lineCounter' wrap='off' readonly>1.</textarea>
+            <textarea id='lineCounter' wrap=off readonly>1.</textarea>
             <textarea id='codeEditor' style="min-width: 100%" wrap='off' th:field="${project.lua}"></textarea>
         </label>
         <div>
@@ -100,7 +102,8 @@
 <template id="keybindTemplate">
     <tr>
         <td>
-            <input type="text" class="funcName" onchange="updateKeybindInput()" value="Unnamed">
+            <label hidden for="updateKeybindInput">Update Keybind Input</label>
+            <input id="updateKeybindInput" type="text" class="funcName" onchange="updateKeybindInput()" value="Unnamed">
         </td>
         <td>
             <label class="keybindText">None</label>
