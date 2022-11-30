@@ -51,6 +51,7 @@
         <div class="col-sm">
             <form class="input-group" method="get" action="/search">
                 <div class="input-group mb-3">
+                    <label hidden for="searchBar">Search Bar</label>
                     <input type="text" class="form-control" name="q" placeholder="Search Projects" id="searchBar">
                     <div class="input-group-append">
                         <button class="btn btn-secondary" type="submit" style="border-radius: 0px 5px 5px 0;">Search
@@ -63,12 +64,15 @@
     </div>
     <table class="table">
         <thead>
-        <td>
-            <h4>Name</h4>
-        </td>
-        <td>
-            <a class="btn btn-primary" href="/edit?id=-1" style="float:right">Add Project</a>
-        </td>
+        <tr>
+            <td>
+                <h4>Name</h4>
+            </td>
+
+            <td>
+                <a class="btn btn-primary" href="/edit?id=-1" style="float:right">Add Project</a>
+            </td>
+        </tr>
         </thead>
         <tbody>
         <tr th:each="proj: ${projects}">
