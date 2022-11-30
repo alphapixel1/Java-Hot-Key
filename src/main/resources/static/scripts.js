@@ -21,8 +21,8 @@ function codeEditor() {
 
     function line_counter() {
         var lineCount = codeEditor.value.split('\n').length;
-        var outarr = new Array();
-        if (lineCountCache != lineCount) {
+        var outarr = [];
+        if (lineCountCache !== lineCount) {
             for (var x = 0; x < lineCount; x++) {
                 outarr[x] = (x + 1) + '.';
             }
