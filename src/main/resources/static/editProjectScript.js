@@ -1,13 +1,13 @@
 let selectedKeybind = null;
 let keybinds = [];
-var $ = function (id) {
+var get = function (id) {
     return document.getElementById(id)
 }
 
 window.onload = function () {
-    let loader = $("keybindsLoader");
+    let loader = get("keybindsLoader");
     let rows = [...loader.querySelectorAll("tr")];
-    let container = $("keybindContainer");
+    let container = get("keybindContainer");
     for (const row of rows) {
         let name = row.querySelector(".name").innerHTML;
         let keys = [...row.querySelectorAll("li")].map(e => parseInt(e.innerHTML));
@@ -25,21 +25,21 @@ window.onload = function () {
 
 function addKeybind() {
     let kb = new Keybind();
-    let container = $("keybindContainer");
+    let container = get("keybindContainer");
     container.append(kb.element);
     keybinds.push(kb);
     updateKeybindInput();
 }
 
 function deleteKeybind(keybindElement) {
-    $("keybindContainer").removeChild(keybindElement);
+    get("keybindContainer").removeChild(keybindElement);
     keybinds = keybinds.filter(e => e.element !== keybindElement);
     updateKeybindInput();
 }
 
 function editKeybind(keybindElement) {
     selectedKeybind = keybinds.find(e => e.element === keybindElement);
-    $("overlay").style.display = "block";
+    get("overlay").style.display = "block";
     updateOverlay();
 }
 
@@ -49,15 +49,15 @@ function toggleModifier(checkbox) {
 }
 
 function updateOverlay() {
-    $("overlayAlt").checked = selectedKeybind.alt;
-    $("overlayControl").checked = selectedKeybind.ctrl;
-    $("overlayShift").checked = selectedKeybind.shift;
-    $("overlayKeybindText").innerHTML = selectedKeybind.toString();
+    get("overlayAlt").checked = selectedKeybind.alt;
+    get("overlayControl").checked = selectedKeybind.ctrl;
+    get("overlayShift").checked = selectedKeybind.shift;
+    get("overlayKeybindText").innerHTML = selectedKeybind.toString();
 
 }
 
 function updateKeybindInput() {
-    $("keybindData").value = keybinds.map(e => e.toQueryString()).join(".~.");
+    get("keybindData").value = keybinds.map(e => e.toQueryString()).join(".~.");
 }
 
 function clearKeybind() {
@@ -69,7 +69,7 @@ function clearKeybind() {
 
 function updateKeybind() {
     selectedKeybind.element.querySelector(".keybindText").innerHTML = selectedKeybind.toString();
-    $("overlay").style.display = "none";
+    get("overlay").style.display = "none";
     selectedKeybind = null;
     updateKeybindInput();
 }
@@ -83,7 +83,7 @@ document.addEventListener("keydown", (event) => {
 
 class Keybind {
     constructor(name, keys) {
-        let template = $("keybindTemplate");
+        let template = get("keybindTemplate");
         this.element = template.content.cloneNode(true).firstElementChild;
         if (name == null) {
             this.keys = [];
