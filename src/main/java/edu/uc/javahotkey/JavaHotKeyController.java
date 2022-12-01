@@ -4,7 +4,7 @@ import edu.uc.javahotkey.dto.Project;
 import edu.uc.javahotkey.lua.ILuaCompileService;
 import edu.uc.javahotkey.lua.LuaCompiler;
 import edu.uc.javahotkey.service.IJavaHotKeyService;
-import kotlin.NotImplementedError;
+//import kotlin.NotImplementedError;
 import net.bytebuddy.utility.nullability.MaybeNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,7 +66,7 @@ public class JavaHotKeyController {
             var p=findProject(id);
             if(p==null){
                 log.error("Project Could Not Be Found: ID="+id);
-                throw new NotImplementedError();
+                //throw new NotImplementedError();
             }else {
                 log.trace("Editing Project: ID="+id);
                 model.addAttribute("project",p);
