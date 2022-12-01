@@ -6,21 +6,38 @@
     <link rel="stylesheet" href="bootstrap.css"/>
     <link rel="stylesheet" href="codeEditor.css"/>
     <link rel="stylesheet" href="editProject.css"/>
+    <link rel="stylesheet" href="navbar.css"/>
     <script src="editProjectScript.js"></script>
-    <script src="scripts.js"></script>
+    <script src="codeEditor.js"></script>
+    <script src="navbarjQuery.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.6.1.js"
+            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+            crossorigin="anonymous">
+    </script>
 </head>
 <body onload="codeEditor()">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/edit?id=-1" style="margin-left: 10px">Java Hot Key</a>
-    <a class="navbar-brand" href="/" style="margin-left: 10px">Projects</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link active" href="/edit?id=-1" style="margin-left: 15px; margin-right: 15px">Java Hot Key</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/" style="margin-left: 15px; margin-right: 15px">Projects</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Documentation" style="margin-left: 15px; margin-right: 15px">Documentation</a>
+        </li>
+    </ul>
 </nav>
 <br>
 <form method="post" class="container">
     <div class="row">
         <div class="col">
-
+            <label hidden for="isCompile">Compiled</label>
             <input style="display: none" id="isCompile" name="isCompile" value="false"/>
-            <input hidden th:field="${project.id}">
+            <label hidden for="th"></label>
+            <input hidden th:field="${project.id}" id="th">
             <label for="projectName">Project Name: </label>
             <input id="projectName" th:field="${project.name}">
         </div>
@@ -28,10 +45,11 @@
     <div class="row">
         <div class="col">
             <h3>Lua Code Input</h3>
+            <label hidden for="keybindData">Keybind Data</label>
             <input hidden name="keybindData" id="keybindData">
         </div>
         <label>
-            <textarea id='lineCounter' wrap='off' readonly>1.</textarea>
+            <textarea id='lineCounter' wrap=off readonly>1.</textarea>
             <textarea id='codeEditor' style="min-width: 100%" wrap='off' th:field="${project.lua}"></textarea>
         </label>
         <div>
@@ -58,7 +76,7 @@
         </div>
     </div>
     <div class="row" th:if="${CompileData}!=null">
-        <div class="card" style="padding: 0px; margin:10px 5px 10px 0px">
+        <div class="card" style="padding: 0; margin:10px 5px 10px 0">
             <p class="card card-header">Compiler Output</p>
             <ul class="card-body output">
                 <li th:each="msg: ${CompileData}">
@@ -100,7 +118,8 @@
 <template id="keybindTemplate">
     <tr>
         <td>
-            <input type="text" class="funcName" onchange="updateKeybindInput()" value="Unnamed">
+            <label hidden for="updateKeybindInput">Update Keybind Input</label>
+            <input id="updateKeybindInput" type="text" class="funcName" onchange="updateKeybindInput()" value="Unnamed">
         </td>
         <td>
             <label class="keybindText">None</label>

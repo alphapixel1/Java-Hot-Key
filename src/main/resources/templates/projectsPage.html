@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <title>Projects</title>
     <link rel="stylesheet" href="bootstrap.css"/>
+    <link rel="stylesheet" href="navbar.css"/>
+    <script src="navbarjQuery.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.6.1.js"
+            integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+            crossorigin="anonymous">
+    </script>
     <style>
         td {
             vertical-align: middle;
@@ -39,9 +46,18 @@
     </script>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/edit?id=-1" style="margin-left: 10px">Java Hot Key</a>
-    <a class="navbar-brand" href="/" style="margin-left: 10px">Projects</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/edit?id=-1" style="margin-left: 15px; margin-right: 15px">Java Hot Key</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="" style="margin-left: 15px; margin-right: 15px">Projects</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Documentation" style="margin-left: 15px; margin-right: 15px">Documentation</a>
+        </li>
+    </ul>
 </nav>
 <div class="container">
     <div class="row">
@@ -51,9 +67,10 @@
         <div class="col-sm">
             <form class="input-group" method="get" action="/search">
                 <div class="input-group mb-3">
+                    <label hidden for="searchBar">Search Bar</label>
                     <input type="text" class="form-control" name="q" placeholder="Search Projects" id="searchBar">
                     <div class="input-group-append">
-                        <button class="btn btn-secondary" type="submit" style="border-radius: 0px 5px 5px 0;">Search
+                        <button class="btn btn-secondary" type="submit" style="border-radius: 0 5px 5px 0;">Search
                         </button>
                     </div>
                 </div>
@@ -63,12 +80,14 @@
     </div>
     <table class="table">
         <thead>
-        <td>
-            <h4>Name</h4>
-        </td>
-        <td>
-            <a class="btn btn-primary" href="/edit?id=-1" style="float:right">Add Project</a>
-        </td>
+        <tr>
+            <td>
+                <h4>Name</h4>
+            </td>
+            <td>
+                <a class="btn btn-primary" href="/edit?id=-1" style="float:right">Add Project</a>
+            </td>
+        </tr>
         </thead>
         <tbody>
         <tr th:each="proj: ${projects}">
