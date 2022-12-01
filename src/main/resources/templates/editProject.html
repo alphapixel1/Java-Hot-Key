@@ -16,10 +16,13 @@
             crossorigin="anonymous">
     </script>
 </head>
+<!-- load codeEditor() JS to enable line number population -->
 <body onload="codeEditor()">
+<!-- custom navbar w/ highlighting -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <ul class="navbar-nav mr-auto">
         <li class="nav-item">
+            <!-- nav-link active designates that this the active page. it throws a small white line under the nav link -->
             <a class="nav-link active" href="/edit?id=-1" style="margin-left: 15px; margin-right: 15px">Java Hot Key</a>
         </li>
         <li class="nav-item">
@@ -48,6 +51,7 @@
             <label hidden for="keybindData">Keybind Data</label>
             <input hidden name="keybindData" id="keybindData">
         </div>
+        <!-- code editor w/ line population -->
         <label>
             <textarea id='lineCounter' wrap=off readonly>1.</textarea>
             <textarea id='codeEditor' style="min-width: 100%" wrap='off' th:field="${project.lua}"></textarea>
@@ -56,6 +60,7 @@
             <input type="submit" value="Save" class="btn btn-primary">
             <input type="submit" value="Compile" class="btn btn-secondary"
                    onclick="document.querySelector('#isCompile').value=true;">
+            <!-- button links to documentation just like on the nav -->
             <a href="/Documentation" class="btn btn-dark" style="color:white" target="_blank">Documentation</a>
         </div>
         <div class="col">
