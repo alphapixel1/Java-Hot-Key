@@ -1,7 +1,6 @@
 package edu.uc.javahotkey.lua;
 import edu.uc.javahotkey.dto.KeyMap;
 import edu.uc.javahotkey.dto.Project;
-import kotlin.NotImplementedError;
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaValue;
@@ -63,7 +62,7 @@ public class LuaCompiler implements  ILuaCompileService{
                 msg.add(new CompilerMessage("Function \""+km.functionName+"\" Does Not Exist Or Could Not Be Compiled Successfully",true));
                 msg.add(new CompilerMessage("- Error: "+e.getMessage(),true));
             }catch (Exception e){
-                throw new NotImplementedError();
+                msg.add(new CompilerMessage("Server Error: "+e.getMessage(),true));
             }
         }
 

@@ -30,6 +30,10 @@ public @Data class Project {
         this.name = name;
     }
 
+    /**
+     *
+     * @return a default project with default code
+     */
     public static Project Default() {
         var p=new Project(-1,"Unnamed");
         //p.keymaps=new ArrayList<>();
@@ -47,6 +51,11 @@ public @Data class Project {
                 ",keymaps="+ s+
                 ",lua="+lua.replace("\n","\\n")+"}";
     }
+
+    /**
+     * Parses the keymaps from the string and returns them as a keymap class
+     * @return
+     */
     public ArrayList<KeyMap> getKeymaps() {
         var keymaps = new ArrayList<KeyMap>();
         if (this.keymapString!=null && !this.keymapString.isEmpty()) {//saving the keybinds to the project

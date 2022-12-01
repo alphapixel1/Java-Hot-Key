@@ -4,7 +4,7 @@ import edu.uc.javahotkey.dto.Project;
 import edu.uc.javahotkey.lua.ILuaCompileService;
 import edu.uc.javahotkey.lua.LuaCompiler;
 import edu.uc.javahotkey.service.IJavaHotKeyService;
-import kotlin.NotImplementedError;
+//import kotlin.NotImplementedError;
 import net.bytebuddy.utility.nullability.MaybeNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +23,11 @@ public class JavaHotKeyController {
 
     private static final Logger log = LoggerFactory.getLogger(JavaHotKeyController.class);
 
+    /**
+     *
+     * @param model
+     * @return index page
+     */
     @RequestMapping("/")
     public String index(Model model) {
         log.trace("Indexing projects");
@@ -32,6 +37,13 @@ public class JavaHotKeyController {
         //return "index";
         return "projectsPage";
     }
+
+    /**
+     * Filters projects list based on query
+     * @param model
+     * @param query
+     * @return
+     */
     @GetMapping("/search")
     public String searchProjects(Model model, @RequestParam("q") String query){
         var lowQuery=query.toLowerCase();
@@ -40,6 +52,13 @@ public class JavaHotKeyController {
         model.addAttribute("projects",projects);
         return "projectsPage";
     }
+
+    /**
+     * fills model with a project to edit
+     * @param model
+     * @param id
+     * @return edit project page
+     */
     @GetMapping("/edit")
     public String editProject(Model model, @RequestParam("id") int id){
 
@@ -47,7 +66,7 @@ public class JavaHotKeyController {
             var p=findProject(id);
             if(p==null){
                 log.error("Project Could Not Be Found: ID="+id);
-                throw new NotImplementedError();
+                //throw new NotImplementedError();
             }else {
                 log.trace("Editing Project: ID="+id);
                 model.addAttribute("project",p);
@@ -58,6 +77,11 @@ public class JavaHotKeyController {
         }
         return "editProject";
     }
+
+    /**
+     *
+     * @return redirects to documentation page
+     */
     @GetMapping("/Documentation")
     public String documentation(){
     return "documentation";
@@ -95,6 +119,12 @@ public class JavaHotKeyController {
             return "redirect:/";
         }
     }
+
+    /**
+     * Deletes the project with the id
+     * @param id
+     * @return the redirect to home
+     */
     @GetMapping("/delete")
     public String deleteProject(@RequestParam("id") int id){
         try {
@@ -106,14 +136,21 @@ public class JavaHotKeyController {
         return "redirect:/";
     }
 
-
+    /**
+     *
+     * @return a list of all projects
+     */
     @GetMapping("/findAllProjects")
     @ResponseBody
     public List<Project> findAllProjects() {
         return javaHotKeyService.fetchAllProjects();
     }
 
-
+    /**
+     *
+     * @param id
+     * @return project if project exists by id, if not, returns null
+     */
     @MaybeNull
     @GetMapping("/findProject")
     @ResponseBody
@@ -125,7 +162,7 @@ public class JavaHotKeyController {
             return null;
         }
     }
-
+    /*
     @GetMapping("/sampleJsonSchema")
     @ResponseBody
     public Project sampleJsonSchema() {
@@ -136,7 +173,7 @@ public class JavaHotKeyController {
         project.setName("Sample Project");
         project.setKeymapString("func_name~49,-1");
         return project;
-    }
+    }*/
 
     /**
      * Gets the next available project id
