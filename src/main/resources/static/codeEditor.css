@@ -1,3 +1,5 @@
+/* This file handles the styling for the code editor and line counter that are located within editProject.html */
+
 #codeEditor, #lineCounter {
     font-family: lucida console, courier new, courier, monospace;
     margin: 0;

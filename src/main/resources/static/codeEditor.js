@@ -1,7 +1,9 @@
 function codeEditor() {
+    // grab elements
     var codeEditor = document.getElementById('codeEditor');
     var lineCounter = document.getElementById('lineCounter');
 
+    // add event listener for scrolling
     codeEditor.addEventListener('scroll', () => {
         lineCounter.scrollTop = codeEditor.scrollTop;
         lineCounter.scrollLeft = codeEditor.scrollLeft;
@@ -17,8 +19,10 @@ function codeEditor() {
         }
     });
 
+    // cache lineCount
     var lineCountCache = 0;
 
+    // adds live line population
     function line_counter() {
         var lineCount = codeEditor.value.split('\n').length;
         var outarr = [];
@@ -31,6 +35,7 @@ function codeEditor() {
         lineCountCache = lineCount;
     }
 
+    // final event listener that calls line_counter()
     codeEditor.addEventListener('input', () => {
         line_counter();
     });
