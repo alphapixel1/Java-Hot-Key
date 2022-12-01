@@ -1,10 +1,9 @@
 let selectedKeybind = null;
 let keybinds = [];
-var get = function (id) {
+const get = function (id) {
     return document.getElementById(id)
 }
-
-window.onload = function () {
+addEventListener("load", (event) => {
     let loader = get("keybindsLoader");
     let rows = [...loader.querySelectorAll("tr")];
     let container = get("keybindContainer");
@@ -19,8 +18,12 @@ window.onload = function () {
 
     updateKeybindInput();
     //   loader.parentElement.removeChild(loader);
+});
 
-}
+/*window.onload = function () {
+
+
+}*/
 
 
 function addKeybind() {
@@ -57,6 +60,7 @@ function updateOverlay() {
 }
 
 function updateKeybindInput() {
+    console.log("updating keybind input")
     get("keybindData").value = keybinds.map(e => e.toQueryString()).join(".~.");
 }
 
@@ -85,6 +89,7 @@ class Keybind {
     constructor(name, keys) {
         let template = get("keybindTemplate");
         this.element = template.content.cloneNode(true).firstElementChild;
+        this.element.querySelector(".funcName").onchange=updateKeybindInput;
         if (name == null) {
             this.keys = [];
             this.alt = false;

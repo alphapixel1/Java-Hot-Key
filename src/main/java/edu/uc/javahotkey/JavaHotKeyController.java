@@ -66,6 +66,7 @@ public class JavaHotKeyController {
             var p=findProject(id);
             if(p==null){
                 log.error("Project Could Not Be Found: ID="+id);
+                return "redirect:/";
                 //throw new NotImplementedError();
             }else {
                 log.trace("Editing Project: ID="+id);
@@ -99,6 +100,7 @@ public class JavaHotKeyController {
     public String saveProject(Model model, @RequestParam("id") int id,@RequestParam("name") String name,@RequestParam("lua") String lua, @RequestParam("keybindData") String keybindData, @RequestParam("isCompile") boolean isCompile) {
         log.trace("Saving Project: ID="+id);
         Project p= projectFromParams(id,name,lua,keybindData);
+        System.err.println("Controller.saveProject: "+ p.getKeymapString());
         if(isCompile){
             ILuaCompileService service=new LuaCompiler();
             model.addAttribute("CompileData",service.TestProject(p));
@@ -106,15 +108,15 @@ public class JavaHotKeyController {
             return "editProject";
         }else {
 
-            /*
-            if (id >= 0) {
+
+            /*if (id >= 0) {
                 javaHotKeyService.save(p);
             } else {
                 int nid = getNextAvailableProjectID();
                 p.setId(nid);
                 javaHotKeyService.save(p);
-            }
-             */
+            }*/
+
             javaHotKeyService.save(p);
             return "redirect:/";
         }
@@ -196,7 +198,7 @@ public class JavaHotKeyController {
      * @return the project class
      */
     private Project projectFromParams(int id,String name,String lua, String keybindData){
-        System.err.println(keybindData);
+        //System.err.println(keybindData);
         Project p=new Project(id,name);
         p.setKeymapString(keybindData);
         p.setLua(lua);

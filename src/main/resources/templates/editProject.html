@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="navbar.css"/>
     <script src="editProjectScript.js"></script>
     <script src="codeEditor.js"></script>
-    <script src="navbarjQuery.js"></script>
+
     <script
             src="https://code.jquery.com/jquery-3.6.1.js"
             integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
             crossorigin="anonymous">
     </script>
+    <script src="navbarjQuery.js"></script>
 </head>
 <!-- load codeEditor() JS to enable line number population -->
 <body onload="codeEditor()">
@@ -48,21 +49,24 @@
     <div class="row">
         <div class="col">
             <h3>Lua Code Input</h3>
-            <label hidden for="keybindData">Keybind Data</label>
+            <!-- code editor w/ line population -->
+            <div>
+                <textarea id='lineCounter' wrap=off readonly>1.</textarea>
+                <textarea id='codeEditor' style="min-width: 100%" wrap='off' th:field="${project.lua}"></textarea>
+            </div>
+            <div>
+                <input type="submit" value="Save" class="btn btn-primary">
+                <input type="submit" value="Compile" class="btn btn-secondary"
+                       onclick="document.querySelector('#isCompile').value=true;">
+                <!-- button links to documentation just like on the nav -->
+                <a href="/Documentation" class="btn btn-dark" style="color:white" target="_blank">Documentation</a>
+            </div>
+            <!--<label hidden for="keybindData">Keybind Data</label>-->
             <input hidden name="keybindData" id="keybindData">
         </div>
-        <!-- code editor w/ line population -->
-        <label>
-            <textarea id='lineCounter' wrap=off readonly>1.</textarea>
-            <textarea id='codeEditor' style="min-width: 100%" wrap='off' th:field="${project.lua}"></textarea>
-        </label>
-        <div>
-            <input type="submit" value="Save" class="btn btn-primary">
-            <input type="submit" value="Compile" class="btn btn-secondary"
-                   onclick="document.querySelector('#isCompile').value=true;">
-            <!-- button links to documentation just like on the nav -->
-            <a href="/Documentation" class="btn btn-dark" style="color:white" target="_blank">Documentation</a>
-        </div>
+
+
+
         <div class="col">
             <h2>Keybinds</h2>
             <table class="table">
@@ -124,7 +128,7 @@
     <tr>
         <td>
             <label hidden for="updateKeybindInput">Update Keybind Input</label>
-            <input id="updateKeybindInput" type="text" class="funcName" onchange="updateKeybindInput()" value="Unnamed">
+            <input id="updateKeybindInput" type="text" class="funcName" value="Unnamed">
         </td>
         <td>
             <label class="keybindText">None</label>
@@ -139,7 +143,7 @@
 </template>
 
 <table id="keybindsLoader" style="display: none">
-    <tr th:each="map: ${project.keymaps}">
+    <tr th:each="map: ${project.getKeymaps()}">
         <td class="name" th:text="${map.functionName}"></td>
         <td>
             <ul>
@@ -148,7 +152,7 @@
         </td>
     </tr>
 </table>
-<footer style="align-content: center">
+<footer style="width:fit-content;margin-right: 0;margin-left: 0">
     Copyright &copy; 2022 University of Cincinnati, IT4045C<br>
     <a href="https://github.com/alphapixel1/Java-Hot-Key/" target="_blank" rel="noopener noreferrer">Check Out Our
         GitHub Repo!</a>
