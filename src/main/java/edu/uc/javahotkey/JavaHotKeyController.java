@@ -105,7 +105,7 @@ public class JavaHotKeyController {
             model.addAttribute("project",p);
             return "editProject";
         }else {
-            log.error("Controller.saveProject: "+ p.getKeymapString());
+            log.warn("User may choose not to compile"+ p.getKeymapString());
             javaHotKeyService.save(p);
             return "redirect:/";
         }
