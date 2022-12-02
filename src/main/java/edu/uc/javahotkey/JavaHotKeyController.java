@@ -59,7 +59,7 @@ public class JavaHotKeyController {
      */
     @GetMapping("/edit")
     public String editProject(Model model, @RequestParam("id") int id){
-
+        log.info("Project edited with the ID of: " + id);
         if(id>=0) {//project id's less than zero are new projects
             var p=findProject(id);
             if(p==null){
@@ -97,14 +97,15 @@ public class JavaHotKeyController {
     @PostMapping(value="/edit")
     public String saveProject(Model model, @RequestParam("id") int id,@RequestParam("name") String name,@RequestParam("lua") String lua, @RequestParam("keybindData") String keybindData, @RequestParam("isCompile") boolean isCompile) {
         log.trace("Saving Project: ID="+id);
+        log.info("Project saved with the name: " + name);
         Project p= projectFromParams(id,name,lua,keybindData);
-        log.error("Controller.saveProject: "+ p.getKeymapString());
         if(isCompile){
             ILuaCompileService service=new LuaCompiler();
             model.addAttribute("CompileData",service.TestProject(p));
             model.addAttribute("project",p);
             return "editProject";
         }else {
+            log.error("Controller.saveProject: "+ p.getKeymapString());
             javaHotKeyService.save(p);
             return "redirect:/";
         }
@@ -119,7 +120,7 @@ public class JavaHotKeyController {
     public String deleteProject(@RequestParam("id") int id){
         try {
             javaHotKeyService.delete(id);
-            log.trace("Deleted Project: ID="+id);
+            log.info("Deleted project with the ID of: " + id);
         }catch (Exception e){
             log.error("Error Deleting Project: ID="+id, e);
         }
