@@ -99,13 +99,14 @@ public class JavaHotKeyController {
         log.trace("Saving Project: ID="+id);
         log.info("Project saved with the name: " + name);
         Project p= projectFromParams(id,name,lua,keybindData);
-        if(isCompile){
+        if(isCompile) {
+            log.info("Compiling project with name: " + name);
             ILuaCompileService service=new LuaCompiler();
             model.addAttribute("CompileData",service.TestProject(p));
             model.addAttribute("project",p);
             return "editProject";
         }else {
-            log.warn("User may choose not to compile"+ p.getKeymapString());
+            log.trace("User saved instead of compile"+ p.getKeymapString());
             javaHotKeyService.save(p);
             return "redirect:/";
         }
