@@ -1,6 +1,6 @@
 # Java-Hot-Key
 ###
-Azure Production Link: http://java-hot-key.eastus.cloudapp.azure.com/
+Java Hot Key Hosted on Azure: http://java-hot-key.eastus.cloudapp.azure.com/
 ## Introduction 
 Define hotkeys for the mouse and keyboard, remap keys or buttons and autocorrect-like replacements.
 ## Storyboard
