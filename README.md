@@ -1,4 +1,6 @@
 # Java-Hot-Key
+###
+Azure Production Link: http://java-hot-key.eastus.cloudapp.azure.com/
 ## Introduction 
 Define hotkeys for the mouse and keyboard, remap keys or buttons and autocorrect-like replacements.
 ## Storyboard
@@ -91,7 +93,7 @@ and the object also has a string of lua code.
 - Product Owner/Scrum Master/DevOps/GitHub Administrator: Andrew Glanz
 - Business Logic and Persistence Specialist: Nick Bell
 - UI Specialist: Felix and Jack McHugh 
-- Test Developer: Reesë Tuttle
+
 ## Weekly Meeting
 
 Thursday after 5pm On Discord.

@@ -1,9 +1,12 @@
 package edu.uc.javahotkey.dto;
 
 
+import edu.uc.javahotkey.JavaHotKeyController;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.ToString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,6 +23,8 @@ public @Data class Project {
     //private ArrayList<KeyMap> keymaps;
     private String keymapString;
     private String lua;
+
+    private static final Logger log = LoggerFactory.getLogger(Project.class);
 
     public Project() {
 
@@ -69,7 +74,7 @@ public @Data class Project {
                         try {
                             keys.add(Integer.parseInt(n));
                         } catch (Exception e) {
-                            //ignore
+                            log.error("error with keybind", e);
                         }
                     }
                 }

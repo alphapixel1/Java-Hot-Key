@@ -32,9 +32,7 @@ public class JavaHotKeyController {
     public String index(Model model) {
         log.trace("Indexing projects");
         var p=findAllProjects();
-
         model.addAttribute("projects",p);
-        //return "index";
         return "projectsPage";
     }
 
@@ -100,23 +98,13 @@ public class JavaHotKeyController {
     public String saveProject(Model model, @RequestParam("id") int id,@RequestParam("name") String name,@RequestParam("lua") String lua, @RequestParam("keybindData") String keybindData, @RequestParam("isCompile") boolean isCompile) {
         log.trace("Saving Project: ID="+id);
         Project p= projectFromParams(id,name,lua,keybindData);
-        System.err.println("Controller.saveProject: "+ p.getKeymapString());
+        log.error("Controller.saveProject: "+ p.getKeymapString());
         if(isCompile){
             ILuaCompileService service=new LuaCompiler();
             model.addAttribute("CompileData",service.TestProject(p));
             model.addAttribute("project",p);
             return "editProject";
         }else {
-
-
-            /*if (id >= 0) {
-                javaHotKeyService.save(p);
-            } else {
-                int nid = getNextAvailableProjectID();
-                p.setId(nid);
-                javaHotKeyService.save(p);
-            }*/
-
             javaHotKeyService.save(p);
             return "redirect:/";
         }
@@ -133,7 +121,7 @@ public class JavaHotKeyController {
             javaHotKeyService.delete(id);
             log.trace("Deleted Project: ID="+id);
         }catch (Exception e){
-            log.error("Error Deleting Project: ID="+id);
+            log.error("Error Deleting Project: ID="+id, e);
         }
         return "redirect:/";
     }
@@ -160,22 +148,10 @@ public class JavaHotKeyController {
         try {
             return javaHotKeyService.fetchById(id);
         }catch (Exception e){
-            log.error("Unable To Find Project: ID="+id);
+            log.error("Unable To Find Project: ID="+id, e);
             return null;
         }
     }
-    /*
-    @GetMapping("/sampleJsonSchema")
-    @ResponseBody
-    public Project sampleJsonSchema() {
-        log.debug("Sample Json schema requested");
-        Project project = new Project(0, "p");
-        project.setId(0);
-        project.setLua("function func_name(keys)\\nDown(Key.A)\\nSleep(25)--ms\\nUp(Key.A)\\nPress(Key.B)\\nen");
-        project.setName("Sample Project");
-        project.setKeymapString("func_name~49,-1");
-        return project;
-    }*/
 
     /**
      * Gets the next available project id

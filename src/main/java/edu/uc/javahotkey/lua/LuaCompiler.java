@@ -24,7 +24,6 @@ public class LuaCompiler implements  ILuaCompileService{
         Globals g=JsePlatform.standardGlobals();
         try{
             g.load(getGlobalString()).call();
-            //System.err.println(p.getLua());
             g.load(p.getLua()).call();
             ret.add(new CompilerMessage("Initial Compiling Successful",false));
             if(p.getKeymaps()!=null) {
@@ -37,22 +36,6 @@ public class LuaCompiler implements  ILuaCompileService{
         }
         return ret;
     }
-   /* @Override
-    public LuaCompileData CompileProject(Project p) {
-        Globals g=JsePlatform.standardGlobals();
-        RunTimeMessage msg;
-        try{
-            g.load(getGlobalString()).call();
-            System.err.println(p.getLua());
-            g.load(p.getLua()).call();
-            msg=new RunTimeMessage("Code Compiled Successfully",-1,true);
-        }catch (LuaError e){
-            msg=new RunTimeMessage(e.getMessage(),-1,false);
-        } catch (IOException e) {
-           msg=new RunTimeMessage("globals.lua Was Not Found: Server Error",-1,false);
-        }
-        return new LuaCompileData(g,msg);
-    }*/
     private void CheckFunctions(Globals g,ArrayList<CompilerMessage> msg, Project p) {
         for (KeyMap km:p.getKeymaps()) {
             try{
